@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>✨ Fun Corner | Elite Instagram Community</title>
+    
+    <!-- Google Fonts & Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #010101;
+            color: #f0f0f0;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            position: relative;
+        }
+
+        /* ========== ANIMATED BACKGROUND ========== */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            animation: floatOrb 15s infinite alternate ease-in-out;
+        }
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(225,48,108,0.3);
+            top: -100px;
+            left: -100px;
+        }
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: rgba(240,148,51,0.25);
+            bottom: -150px;
+            right: -100px;
+            animation-delay: -5s;
+        }
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: rgba(0,242,254,0.2);
+            top: 40%;
+            left: 20%;
+            animation-duration: 20s;
+        }
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 70px) scale(1.2); }
+        }
+
+        /* Gradient overlay that moves */
+        .gradient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 40%, rgba(225,48,108,0.08), rgba(0,0,0,0.95));
+            pointer-events: none;
+            z-index: -1;
+            animation: moveGradient 12s infinite alternate;
+        }
+        @keyframes moveGradient {
+            0% { background-position: 0% 0%; opacity: 0.6; }
+            100% { background-position: 100% 100%; opacity: 1; }
+        }
+
+        /* custom scroll */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #E1306C, #f09433);
+            border-radius: 12px;
+        }
+
+        /* reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: all 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* sections */
+        .section-padding {
+            padding: 90px 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-size: 2.6rem;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: -0.5px;
+            background: linear-gradient(130deg, #ffffff, #E1306C, #f9a8d4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 55px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, #f09433, #E1306C);
+            border-radius: 4px;
+        }
+
+        /* buttons & glass */
+        .glass-card {
+            background: rgba(20, 20, 30, 0.45);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 32px;
+        }
+
+        /* hero */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .logo-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin-bottom: 30px;
+            animation: floatGlow 3s infinite alternate;
+        }
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 20px 35px -10px rgba(225,48,108,0.5);
+            border: 2px solid rgba(255,255,255,0.25);
+        }
+        @keyframes floatGlow {
+            0% { transform: translateY(0px); box-shadow: 0 0 10px #E1306C; }
+            100% { transform: translateY(-10px); box-shadow: 0 0 35px #f09433; }
+        }
+        .welcome-text h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FFDEE9, #E1306C, #f5af19);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+        .hero-desc {
+            color: #bbb;
+            max-width: 600px;
+            margin: 20px auto;
+            font-weight: 400;
+        }
+        .button-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .ig-main-btn, .enter-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 38px;
+            font-weight: 700;
+            border-radius: 50px;
+            color: white;
+            transition: all 0.4s ease;
+            text-decoration: none;
+        }
+        .ig-main-btn {
+            background: linear-gradient(95deg, #f09433, #E1306C);
+            box-shadow: 0 8px 20px rgba(225,48,108,0.4);
+        }
+        .enter-btn {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(4px);
+        }
+        .ig-main-btn:hover, .enter-btn:hover {
+            transform: scale(1.05);
+            letter-spacing: 0.5px;
+        }
+        .ig-main-btn:hover {
+            box-shadow: 0 15px 30px rgba(225,48,108,0.7);
+        }
+        .enter-btn:hover {
+            border-color: #E1306C;
+            background: rgba(225,48,108,0.1);
+            box-shadow: 0 0 20px rgba(225,48,108,0.3);
+        }
+
+        /* zones grid (enhanced) */
+        .group-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .group-card {
+            background: rgba(18, 18, 24, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 24px;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
+        }
+        .group-card:hover {
+            border-color: rgba(225,48,108,0.5);
+            transform: translateY(-5px);
+            background: rgba(28, 28, 38, 0.8);
+            box-shadow: 0 20px 32px -12px rgba(0,0,0,0.5);
+        }
+        .group-main-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .group-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 2;
+        }
+        .zone-icon {
+            font-size: 3rem;
+            filter: drop-shadow(0 0 6px currentColor);
+        }
+        .group-details {
+            flex: 1;
+        }
+        .group-name {
+            font-weight: 800;
+            font-size: 1.65rem;
+            letter-spacing: -0.3px;
+        }
+        .member-count {
+            font-size: 0.85rem;
+            color: #b9b9c3;
+            margin: 5px 0 8px;
+        }
+        .progress-bar-container {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            height: 8px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 20px;
+            transition: width 1.2s ease-out;
+        }
+        .zone-desc {
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-top: 6px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .zone-badge {
+            background: rgba(255,255,255,0.08);
+            border-radius: 50px;
+            padding: 3px 10px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .click-hint {
+            font-size: 1.2rem;
+            color: #E1306C;
+            transition: 0.3s;
+        }
+        .admin-expand-area {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.55s ease-in-out, opacity 0.4s;
+            opacity: 0;
+        }
+        .group-card.expanded .admin-expand-area {
+            max-height: 320px;
+            opacity: 1;
+            margin-top: 22px;
+            border-top: 1px dashed rgba(255,255,255,0.2);
+            padding-top: 22px;
+        }
+        .group-card.expanded .click-hint i {
+            transform: rotate(180deg);
+        }
+        .admin-item {
+            background: rgba(0,0,0,0.35);
+            border-radius: 20px;
+            padding: 12px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            transition: 0.2s;
+        }
+        .admin-role {
+            font-size: 0.7rem;
+            color: #f0a3c2;
+            letter-spacing: 1px;
+        }
+        .admin-title {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .admin-ig-btn {
+            background: rgba(225,48,108,0.2);
+            padding: 7px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #ff90b5;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .admin-ig-btn:hover {
+            background: #E1306C;
+            color: white;
+        }
+
+        /* owner card premium */
+        .owner-card {
+            background: linear-gradient(145deg, #13131f, #07070f);
+            border-radius: 48px;
+            padding: 40px 20px;
+            max-width: 480px;
+            margin: 0 auto;
+            text-align: center;
+            border: 1px solid rgba(225,48,108,0.3);
+        }
+        .owner-img-wrapper {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #E1306C, #f09433);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .owner-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+        }
+        .owner-stats {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            margin: 20px 0;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #fff, #E1306C);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* memory vault grid - dynamic reel embeds */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .reel-card {
+            background: rgba(15,15,25,0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .reel-card:hover {
+            transform: translateY(-5px);
+            border-color: #E1306C;
+            box-shadow: 0 15px 30px rgba(225,48,108,0.2);
+        }
+        .reel-embed {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            background: #000;
+        }
+        .reel-embed iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .reel-info {
+            padding: 12px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+        .add-reel-form {
+            margin-top: 30px;
+            text-align: center;
+            background: rgba(20,20,30,0.6);
+            padding: 20px;
+            border-radius: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .add-reel-form input {
+            width: 70%;
+            padding: 12px;
+            border-radius: 30px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #E1306C;
+            color: white;
+            margin-right: 10px;
+        }
+        .add-reel-form button {
+            padding: 12px 24px;
+            background: linear-gradient(95deg, #E1306C, #f09433);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .memory-grid { grid-template-columns: 1fr; }
+            .add-reel-form input { width: 100%; margin-bottom: 10px; }
+        }
+
+        /* leaderboard premium */
+        .leaderboard-container {
+            background: rgba(15, 15, 25, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 25px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .lb-item {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 14px 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: 0.2s;
+        }
+        .lb-item:hover {
+            background: rgba(255,255,255,0.05);
+            border-radius: 60px;
+        }
+        .rank-icon {
+            font-size: 1.9rem;
+            width: 50px;
+            text-align: center;
+        }
+        .member-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(145deg, #E1306C, #f09433);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .request-btn {
+            background: linear-gradient(95deg, #E1306C, #f09819);
+            padding: 16px 44px;
+            font-weight: 800;
+            border-radius: 60px;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            display: inline-block;
+            box-shadow: 0 12px 25px -8px #E1306C;
+            text-decoration: none;
+        }
+        .request-btn:hover {
+            transform: scale(1.02);
+            letter-spacing: 1.2px;
+        }
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #888;
+            position: relative;
+            z-index: 2;
+        }
+        @media (max-width: 580px) {
+            .section-title { font-size: 2rem; }
+            .group-main-content { flex-direction: column; align-items: flex-start; }
+            .click-hint { align-self: flex-end; }
+            .admin-item { flex-direction: column; text-align: center; gap: 10px; }
+            .hero-section h1 { font-size: 2.6rem; }
+            .button-group { flex-direction: column; gap: 12px; width: 100%; }
+            .ig-main-btn, .enter-btn { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Background Elements -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="gradient-overlay"></div>
+
+    <section class="hero-section">
+        <div class="logo-container reveal">
+            <img src="WhatsApp Image 2026-03-20 at 7.56.57 PM.jpeg" alt="Fun Corner Crest">
+        </div>
+        <div class="welcome-text reveal">
+            <h1>FUN CORNER</h1>
+            <p class="hero-desc">Where aesthetics meet elite energy — the most exclusive Instagram universe. 6 zones, 6000+ legends, infinite vibes.</p>
+        </div>
+        <div class="button-group">
+            <a href="https://www.instagram.com/n0th1n5m?igsh=b2xuMm03MXY3bHAy" class="ig-main-btn reveal" target="_blank"><i class="fab fa-instagram"></i> Explore Official Hub</a>
+            <a href="login.html" class="enter-btn reveal"><i class="fas fa-sign-in-alt"></i> Enter Community</a>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <h2 class="section-title reveal"><i class="fas fa-crown" style="margin-right: 12px;"></i> Elite Zones</h2>
+        <div class="group-list" id="zoneContainer"></div>
+    </section>
+
+    <section class="section-padding">
+        <h2 class="section-title reveal"><i class="fas fa-user-astronaut"></i> The Founder</h2>
+        <div class="owner-card reveal">
+            <div class="owner-img-wrapper">
+                <img src="owner.jpg" alt="Owner" class="owner-img" onerror="this.src='https://ui-avatars.com/api/?background=E1306C&color=fff&bold=true&size=120&name=Mehu'">
+            </div>
+            <h3 style="font-size: 1.9rem; font-weight: 800;">Mehu</h3>
+            <p style="color: #E1306C; font-weight: 500;">✦ Visionary Creator ✦</p>
+            <div class="owner-stats">
+                <div class="stat-item"><div class="stat-number">10K+</div><div style="font-size: 0.7rem;">Global Reach</div></div>
+                <div class="stat-item"><div class="stat-number">6</div><div>Zones</div></div>
+                <div class="stat-item"><div class="stat-number">24/7</div><div>Vibe</div></div>
+            </div>
+            <a href="https://www.instagram.com/n0th1n5m?igsh=b2xuMm03MXY3bHAy" class="admin-ig-btn" style="background:#E1306C; color:white; padding: 10px 28px;"><i class="fab fa-instagram"></i> @n0th1n5m</a>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <h2 class="section-title reveal"><i class="fas fa-film"></i> Memory Vault • Reels</h2>
+        <div class="memory-grid" id="reelsContainer"></div>
+        <!-- Add Reel Form (visible only to admin) -->
+        <div id="addReelForm" class="add-reel-form reveal" style="display: none;">
+            <h3>✨ Add New Reel</h3>
+            <input type="text" id="reelUrl" placeholder="Instagram Reel URL (e.g., https://www.instagram.com/reel/...)" />
+            <button id="addReelBtn">Add Reel</button>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <h2 class="section-title reveal"><i class="fas fa-trophy"></i> Hall of Fame</h2>
+        <div class="leaderboard-container reveal" id="leaderboard"></div>
+        <div class="request-wrapper reveal" style="text-align: center; margin-top: 60px;">
+            <a href="register.html" class="request-btn"><i class="fas fa-paper-plane"></i> Request to Join</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>✦ Crafted with <i class="fas fa-heart" style="color:#E1306C;"></i> by <strong style="color:#E1306C;">Saif</strong> • Fun Corner Universe © 2026</p>
+        <p style="margin-top: 12px;"><i class="fab fa-instagram"></i> <a href="https://www.instagram.com/fun_corner_hq" style="color:#f0a3c2;">@fun_corner_hq</a>  |  <i class="fas fa-gem"></i> Elite Community</p>
+        <p style="margin-top: 12px;"><i class="fas fa-shield-alt"></i> <a href="admin-login.html" style="color:#E1306C;">Admin Access</a></p>
+    </footer>
+
+    <script>
+        // ======================= ANIMATED BACKGROUND (PARTICLES) =======================
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.2;
+                this.opacity = Math.random() * 0.4 + 0.1;
+                this.color = `rgba(255, 255, 255, ${this.opacity})`;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(100, Math.floor(window.innerWidth * 0.15));
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let p of particles) {
+                p.update();
+                p.draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        initParticles();
+        animateParticles();
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+
+        // ======================= ZONE DATA WITH REAL ADMIN DETAILS =======================
+        const zonesData = [
+            { 
+                name: "Gold Zone", icon: "fa-crown", color: "#ffd966", 
+                desc: "OG royalty • 24k leaders", badge: "Elite Lounge", 
+                current: 1540, max: 1800, progressPercent: 85.5, 
+                headAdmin: "Ashraf", headHandle: "https://www.instagram.com/classy._nirob?igsh=MXdrcmdncmZ2MWxmOA==", 
+                coAdmin: "Tasu", coHandle: "https://www.instagram.com/__tasuu._?igsh=azVzMXQ0enIxY3Jk", 
+                bgClass: "gold" 
+            },
+            { 
+                name: "Aura Zone", icon: "fa-star", color: "#c084fc", 
+                desc: "Magnetic vibes • mystic energy", badge: "✨ Aura Masters", 
+                current: 890, max: 1500, progressPercent: 59.3, 
+                headAdmin: "Apela", headHandle: "https://www.instagram.com/apelapato._.6t9?igsh=MW1tdnNhbmt3M21jNA==", 
+                coAdmin: "Oishi", coHandle: "https://www.instagram.com/oiishee._fca_.admin?igsh=MXNsMmdhNzJsbnl0YQ==", 
+                bgClass: "aura" 
+            },
+            { 
+                name: "Soul Zone", icon: "fa-feather-alt", color: "#5bc0ff", 
+                desc: "Deep talks • soulful connection", badge: "🎧 Soul Seeker", 
+                current: 1200, max: 1600, progressPercent: 75, 
+                headAdmin: "Suvo", headHandle: "https://www.instagram.com/suvo_fcs_admin?igsh=MWpjeXBiaWs4bzhzbA==", 
+                coAdmin: "Nusrat", coHandle: "https://www.instagram.com/__nusrat_37?igsh=ZXVqbnZuZGZhdDgw", 
+                bgClass: "soul" 
+            },
+            { 
+                name: "Pastel Zone", icon: "fa-palette", color: "#f9a8d4", 
+                desc: "Soft aesthetics • dreamy art", badge: "🎨 Pastel Pals", 
+                current: 650, max: 1300, progressPercent: 50, 
+                headAdmin: "Ruiat", headHandle: "https://www.instagram.com/ruiat._?igsh=Zml0NmxlOXR0ajVj", 
+                coAdmin: "Afroo", coHandle: "https://www.instagram.com/af_rooo_?igsh=Z2huem10a3J4ZTBj", 
+                bgClass: "pastel" 
+            },
+            { 
+                name: "Velvet Zone", icon: "fa-glass-cheers", color: "#ff6b6b", 
+                desc: "Luxury nights • velvet mood", badge: "🍷 Velvet Room", 
+                current: 980, max: 1500, progressPercent: 65.3, 
+                headAdmin: "Aspika", headHandle: "https://www.instagram.com/aspika_00?igsh=YWd5eXNjMmRvY2Rh", 
+                coAdmin: "Mimia", coHandle: "https://www.instagram.com/miimiiaa_._?igsh=MXh6YTVqZGxueWUwaA==", 
+                bgClass: "velvet" 
+            },
+            { 
+                name: "Ray Zone", icon: "fa-bolt", color: "#ffb347", 
+                desc: "Hustle mode • energy boost", badge: "⚡ Ray Riders", 
+                current: 1100, max: 1550, progressPercent: 71, 
+                headAdmin: "Tanisha", headHandle: "https://www.instagram.com/tanisa_kittymi4ww_?igsh=bHVmeTBuNXBybmt6", 
+                coAdmin: "Tuhu", coHandle: "https://www.instagram.com/mr._tuhu?igsh=bm81bzJkZm95dWdz", 
+                bgClass: "ray" 
+            }
+        ];
+
+        const gradientMap = {
+            gold: "linear-gradient(90deg, #b8860b, #ffd700)",
+            aura: "linear-gradient(90deg, #6a0dad, #c084fc)",
+            soul: "linear-gradient(90deg, #008b8b, #5bc0ff)",
+            pastel: "linear-gradient(90deg, #ff69b4, #f9a8d4)",
+            velvet: "linear-gradient(90deg, #b91c1c, #ff6b6b)",
+            ray: "linear-gradient(90deg, #e65c00, #ffb347)"
+        };
+
+        function buildZones() {
+            const container = document.getElementById("zoneContainer");
+            container.innerHTML = "";
+            zonesData.forEach((zone, idx) => {
+                const card = document.createElement("div");
+                card.className = `group-card reveal ${zone.bgClass}`;
+                card.setAttribute("onclick", `toggleAdmin(this, ${idx})`);
+                card.innerHTML = `
+                    <div class="group-main-content">
+                        <div class="group-info">
+                            <div class="zone-icon" style="color: ${zone.color};"><i class="fas ${zone.icon}"></i></div>
+                            <div class="group-details">
+                                <div class="group-name" style="color: ${zone.color};">${zone.name}</div>
+                                <div class="member-count"><i class="fas fa-users"></i> Members: <span class="count-num" data-current="${zone.current}" data-max="${zone.max}">0</span> / ${zone.max}</div>
+                                <div class="progress-bar-container"><div class="progress-fill" data-progress="${zone.progressPercent}"></div></div>
+                                <div class="zone-desc"><span class="zone-badge"><i class="fas fa-tag"></i> ${zone.badge}</span><span>${zone.desc}</span></div>
+                            </div>
+                        </div>
+                        <div class="click-hint"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="admin-expand-area">
+                        <div class="admin-item">
+                            <div><span class="admin-role">👑 HEAD ADMIN</span><div class="admin-title">${zone.headAdmin}</div></div>
+                            <a href="${zone.headHandle}" class="admin-ig-btn" target="_blank" onclick="event.stopPropagation()"><i class="fab fa-instagram"></i> @${zone.headAdmin.toLowerCase()}</a>
+                        </div>
+                        <div class="admin-item">
+                            <div><span class="admin-role">✨ CO-ADMIN</span><div class="admin-title">${zone.coAdmin}</div></div>
+                            <a href="${zone.coHandle}" class="admin-ig-btn" target="_blank" onclick="event.stopPropagation()"><i class="fab fa-instagram"></i> @${zone.coAdmin.toLowerCase()}</a>
+                        </div>
+                        <div style="font-size: 0.7rem; margin-top: 10px; color:#aaa;"><i class="fas fa-chart-line"></i> Weekly active: ${Math.floor(zone.current * 0.78)}+ engaged</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            initCountersAndProgress();
+        }
+
+        function initCountersAndProgress() {
+            const counters = document.querySelectorAll('.count-num');
+            const progressBars = document.querySelectorAll('.progress-fill');
+            const observerOptions = { threshold: 0.4 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        if (el.classList && el.classList.contains('count-num')) {
+                            animateNumber(el);
+                        }
+                        if (el.classList && el.classList.contains('progress-fill') && !el.style.width) {
+                            const targetPercent = el.getAttribute('data-progress');
+                            el.style.width = `${targetPercent}%`;
+                            const parentCard = el.closest('.group-card');
+                            if (parentCard) {
+                                const cls = Array.from(parentCard.classList).find(c => gradientMap[c]);
+                                if (cls) el.style.background = gradientMap[cls];
+                                else el.style.background = "linear-gradient(90deg, #E1306C, #f09433)";
+                            }
+                        }
+                        observer.unobserve(el);
+                    }
+                });
+            }, observerOptions);
+            counters.forEach(c => observer.observe(c));
+            progressBars.forEach(p => observer.observe(p));
+        }
+
+        function animateNumber(element) {
+            const target = parseInt(element.getAttribute('data-current'));
+            let currentVal = 0;
+            const increment = Math.ceil(target / 50);
+            const update = () => {
+                currentVal += increment;
+                if (currentVal >= target) {
+                    element.innerText = target;
+                    return;
+                }
+                element.innerText = currentVal;
+                requestAnimationFrame(update);
+            };
+            update();
+        }
+
+        function toggleAdmin(card, idx) {
+            document.querySelectorAll('.group-card').forEach(c => {
+                if (c !== card && c.classList.contains('expanded')) {
+                    c.classList.remove('expanded');
+                }
+            });
+            card.classList.toggle('expanded');
+        }
+
+        // ======================= REELS MANAGEMENT =======================
+        // Load reels from localStorage
+        function loadReels() {
+            const stored = localStorage.getItem('funCornerReels');
+            return stored ? JSON.parse(stored) : [
+                { url: "https://www.instagram.com/reel/C4jKqK1oVvX/", title: "Fun Corner Vibes" },
+                { url: "https://www.instagram.com/reel/C4jL0BSoVvY/", title: "Elite Moments" },
+                { url: "https://www.instagram.com/reel/C4jL8CYoVvZ/", title: "Community Highlights" }
+            ];
+        }
+
+        function saveReels(reels) {
+            localStorage.setItem('funCornerReels', JSON.stringify(reels));
+        }
+
+        // Convert Instagram URL to embed URL
+        function getEmbedUrl(url) {
+            // Extract reel ID
+            const match = url.match(/\/reel\/([A-Za-z0-9_-]+)/);
+            if (match) {
+                return `https://www.instagram.com/reel/${match[1]}/embed`;
+            }
+            return null;
+        }
+
+        function renderReels() {
+            const container = document.getElementById('reelsContainer');
+            const reels = loadReels();
+            if (!reels.length) {
+                container.innerHTML = '<div style="text-align:center; padding:40px;">No reels added yet. Admin can add reels using the form below.</div>';
+                return;
+            }
+            container.innerHTML = reels.map(reel => {
+                const embedUrl = getEmbedUrl(reel.url);
+                if (!embedUrl) return '';
+                return `
+                    <div class="reel-card reveal">
+                        <div class="reel-embed">
+                            <iframe src="${embedUrl}" frameborder="0" allowfullscreen scrolling="no" allow="encrypted-media"></iframe>
+                        </div>
+                        <div class="reel-info">
+                            <i class="fab fa-instagram"></i> ${reel.title || 'Fun Corner Reel'}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Add new reel
+        document.getElementById('addReelBtn')?.addEventListener('click', () => {
+            const url = document.getElementById('reelUrl').value.trim();
+            if (!url) return;
+            if (!url.includes('instagram.com/reel/')) {
+                alert('Please enter a valid Instagram reel URL');
+                return;
+            }
+            const reels = loadReels();
+            reels.unshift({ url: url, title: 'New Reel' });
+            saveReels(reels);
+            renderReels();
+            document.getElementById('reelUrl').value = '';
+            alert('Reel added successfully!');
+        });
+
+        // Check if user is admin (from sessionStorage) to show add reel form
+        function checkAdminAndShowForm() {
+            const isAdmin = sessionStorage.getItem('adminLoggedIn') === 'true';
+            const form = document.getElementById('addReelForm');
+            if (form) {
+                form.style.display = isAdmin ? 'block' : 'none';
+            }
+        }
+
+        // ======================= LEADERBOARD =======================
+        const leaderboardData = [
+            { name: "AlphaSpade", zone: "Gold Zone", score: 12500, avatar: "A" },
+            { name: "NovaAura", zone: "Aura Zone", score: 11200, avatar: "N" },
+            { name: "SoulMuse", zone: "Soul Zone", score: 9850, avatar: "S" },
+            { name: "VelvetRose", zone: "Velvet Zone", score: 9120, avatar: "V" },
+            { name: "RayFlash", zone: "Ray Zone", score: 8740, avatar: "R" },
+            { name: "PastelWaves", zone: "Pastel Zone", score: 7650, avatar: "P" }
+        ];
+        
+        function buildLeaderboard() {
+            const lbContainer = document.getElementById("leaderboard");
+            if(!lbContainer) return;
+            lbContainer.innerHTML = "";
+            leaderboardData.forEach((member, idx) => {
+                const rankIcon = idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : "📀";
+                const item = document.createElement("div");
+                item.className = "lb-item";
+                item.innerHTML = `
+                    <div class="rank-icon" style="font-size:1.8rem;">${rankIcon}</div>
+                    <div class="member-avatar" style="background: linear-gradient(135deg, #E1306C, #f09433); color:white;">${member.avatar}</div>
+                    <div style="flex:1;">
+                        <div style="font-weight:700;">${member.name}</div>
+                        <div style="font-size:0.7rem; color:#aaa;"><i class="fas fa-globe"></i> ${member.zone}</div>
+                    </div>
+                    <div class="score" style="font-weight:800; background:linear-gradient(135deg,#fff,#E1306C); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent;">${member.score.toLocaleString()} pts</div>
+                `;
+                lbContainer.appendChild(item);
+            });
+        }
+
+        // ======================= SCROLL REVEAL =======================
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll(".reveal");
+            for (let i = 0; i < reveals.length; i++) {
+                const winHeight = window.innerHeight;
+                const rect = reveals[i].getBoundingClientRect();
+                if (rect.top < winHeight - 100) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", revealOnScroll);
+        
+        // Memory vault click alert (optional)
+        document.addEventListener("click", (e) => {
+            if(e.target.closest('.video-box')) {
+                alert("✨ Exclusive reel preview — only for members! ✨\nJoin Fun Corner to unlock full vault.");
+            }
+        });
+
+        // INITIALIZE EVERYTHING
+        buildZones();
+        buildLeaderboard();
+        renderReels();
+        checkAdminAndShowForm();
+        revealOnScroll();
+
+        // Progress bars fix
+        setTimeout(() => {
+            const progressFills = document.querySelectorAll('.progress-fill');
+            progressFills.forEach(p => {
+                const rect = p.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 80 && !p.style.width) {
+                    const target = p.getAttribute('data-progress');
+                    p.style.width = `${target}%`;
+                    const parentCard = p.closest('.group-card');
+                    if (parentCard) {
+                        const cls = Array.from(parentCard.classList).find(c => gradientMap[c]);
+                        if (cls) p.style.background = gradientMap[cls];
+                    }
+                }
+            });
+        }, 300);
+    </script>
+</body>
+</html>

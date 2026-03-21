@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>✨ Fun Corner | Elite Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://unpkg.com/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #010101;
+            color: #f0f0f0;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            padding: 1rem;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Canvas particle background */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Floating orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: floatOrb 12s infinite alternate ease-in-out;
+        }
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(225, 48, 108, 0.4);
+            top: -100px;
+            left: -80px;
+        }
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(240, 148, 51, 0.3);
+            bottom: -120px;
+            right: -80px;
+            animation-delay: -5s;
+        }
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: rgba(0, 242, 254, 0.2);
+            top: 40%;
+            left: 20%;
+            animation-duration: 18s;
+        }
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, 60px) scale(1.2); }
+        }
+
+        /* Glass card */
+        .glass-card {
+            background: rgba(18, 18, 28, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 32px;
+            padding: 1.8rem 1.5rem;
+            max-width: 700px;
+            margin: 0 auto 1.5rem auto;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 2;
+            animation: cardFloat 3s infinite alternate ease-in-out;
+        }
+        @keyframes cardFloat {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-5px); }
+        }
+
+        /* Step badge with pulse */
+        .step-badge {
+            display: inline-block;
+            background: linear-gradient(95deg, #E1306C, #f09819);
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            margin-bottom: 1.2rem;
+            animation: pulseGlow 2s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(225,48,108,0.4); }
+            100% { box-shadow: 0 0 0 6px rgba(225,48,108,0); }
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, #E1306C);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+        .typing-header {
+            font-size: 1rem;
+            color: #aaa;
+            margin-bottom: 1.5rem;
+            height: 28px;
+        }
+
+        /* Rule list */
+        .rule-list {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            margin: 1.2rem 0;
+            list-style: none;
+        }
+        .rule-list li {
+            margin: 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+        .rule-list li:hover {
+            transform: translateX(5px);
+        }
+        .rule-list i {
+            color: #E1306C;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(95deg, #E1306C, #f09433);
+            border: none;
+            padding: 14px 20px;
+            font-weight: 700;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .btn-primary:active::after {
+            left: 100%;
+        }
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #E1306C;
+            padding: 10px 18px;
+            border-radius: 40px;
+            color: #E1306C;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .btn-outline:active {
+            background: rgba(225, 48, 108, 0.1);
+            transform: scale(0.97);
+        }
+
+        /* Form elements */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            color: #ccc;
+        }
+        input, select {
+            width: 100%;
+            background: rgba(20, 20, 30, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 14px 18px;
+            border-radius: 32px;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #E1306C;
+            box-shadow: 0 0 0 3px rgba(225, 48, 108, 0.2);
+            transform: scale(1.01);
+        }
+
+        /* Copy box */
+        .copy-box {
+            background: #1a1a24;
+            padding: 12px 16px;
+            border-radius: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            transition: all 0.3s;
+        }
+        .copy-box:hover {
+            background: #252535;
+        }
+        .copy-text {
+            font-family: monospace;
+            word-break: break-all;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+        .bio-preview {
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-top: 6px;
+        }
+
+        /* Step containers */
+        .step-container {
+            display: none;
+            animation: fadeSlide 0.5s ease;
+        }
+        .step-container.active {
+            display: block;
+        }
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Error & success messages */
+        .error-msg {
+            color: #ff6b6b;
+            font-size: 0.75rem;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .success-msg {
+            color: #6fcf97;
+        }
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Captcha */
+        .captcha-box {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .captcha-code {
+            background: #2c2c3a;
+            padding: 12px 18px;
+            border-radius: 32px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #00f2fe;
+            animation: captchaGlow 1.5s infinite alternate;
+        }
+        @keyframes captchaGlow {
+            0% { text-shadow: 0 0 0px #00f2fe; }
+            100% { text-shadow: 0 0 5px #00f2fe; }
+        }
+        .captcha-box input {
+            flex: 2;
+            min-width: 130px;
+        }
+
+        /* WhatsApp preview */
+        .whatsapp-preview {
+            font-size: 0.7rem;
+            color: #25D366;
+            margin-top: 4px;
+        }
+
+        /* Admin link & footer */
+        .admin-link {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.7rem;
+            position: relative;
+            z-index: 2;
+        }
+        .admin-link a {
+            color: #E1306C;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .admin-link a:hover {
+            text-shadow: 0 0 8px rgba(225,48,108,0.5);
+        }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #555;
+            font-size: 0.7rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.2s;
+            padding: 16px;
+        }
+        .modal.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-content {
+            background: #12121c;
+            border-radius: 32px;
+            padding: 1.8rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid #E1306C;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalPop 0.3s ease;
+        }
+        @keyframes modalPop {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .ocr-progress {
+            font-size: 0.7rem;
+            color: #aaa;
+            margin-top: 8px;
+        }
+
+        /* Mobile specific tweaks */
+        @media (max-width: 550px) {
+            body {
+                padding: 0.8rem;
+            }
+            .glass-card {
+                padding: 1.5rem 1rem;
+            }
+            h2 {
+                font-size: 1.4rem;
+            }
+            .rule-list li {
+                font-size: 0.85rem;
+            }
+            .btn-primary, .btn-outline {
+                padding: 12px 16px;
+            }
+            input, select {
+                padding: 12px 16px;
+            }
+            .captcha-box {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .captcha-code {
+                text-align: center;
+            }
+            .copy-box {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .copy-box button {
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="glass-card">
+        <div style="text-align: center; margin-bottom: 1rem;">
+            <i class="fas fa-crown" style="font-size: 2.2rem; background: linear-gradient(135deg,#E1306C,#f09433); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation: pulseGlow 2s infinite alternate;"></i>
+            <h1 style="font-size: 1.8rem;">Join The Elite</h1>
+            <div class="typing-header" id="typingText"></div>
+        </div>
+
+        <!-- STEP 0: RULES -->
+        <div id="step0" class="step-container active">
+            <div class="step-badge"><i class="fas fa-shield-alt"></i> Step 1 / 3</div>
+            <h2>📜 Community Codex</h2>
+            <p>Before entering, accept the sacred rules of Fun Corner:</p>
+            <ul class="rule-list">
+                <li><i class="fas fa-heart"></i> Respect all members – zero toxicity</li>
+                <li><i class="fas fa-crown"></i> Active participation keeps zones alive</li>
+                <li><i class="fas fa-ban"></i> No spam or self-promotion without permission</li>
+                <li><i class="fas fa-user-check"></i> Must have Instagram bio with our mention</li>
+                <li><i class="fas fa-gem"></i> Follow admin guidelines & enjoy exclusive perks</li>
+            </ul>
+            <div class="form-group">
+                <label><input type="checkbox" id="acceptRules"> I agree to the Terms & Conditions</label>
+            </div>
+            <button class="btn-primary" id="nextStep0Btn" disabled>Continue to Bio Setup →</button>
+        </div>
+
+        <!-- STEP 1: BIO VERIFICATION -->
+        <div id="step1" class="step-container">
+            <div class="step-badge"><i class="fab fa-instagram"></i> Step 2 / 3</div>
+            <h2>📸 Verify Your Instagram Bio</h2>
+            <p>You must set your Instagram bio exactly as:</p>
+            <div class="copy-box">
+                <span class="copy-text" id="bioTemplate">Member of : @Funconer.11</span>
+                <button class="btn-outline" id="copyBioBtn" style="padding:8px 14px;"><i class="far fa-copy"></i> Copy</button>
+            </div>
+            <div class="form-group">
+                <label>Screenshot of your bio (proof) *</label>
+                <input type="file" id="bioScreenshot" accept="image/*" capture="environment">
+                <div class="bio-preview">Upload a clear screenshot showing your Instagram bio.</div>
+            </div>
+            <button class="btn-primary" id="verifyBioBtn">Verify Bio →</button>
+            <div id="verifyMsg" style="margin-top: 12px;"></div>
+        </div>
+
+        <!-- STEP 2: REGISTRATION FORM -->
+        <div id="step2" class="step-container">
+            <div class="step-badge"><i class="fas fa-pen-alt"></i> Step 3 / 3</div>
+            <h2>✨ Final Details</h2>
+            <form id="regForm">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="fullName" placeholder="Your full name" required>
+                </div>
+                <div class="form-group">
+                    <label>Instagram Username *</label>
+                    <input type="text" id="igUsername" placeholder="@username" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" id="email" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp Number *</label>
+                    <input type="tel" id="whatsapp" placeholder="+8801XXXXXXXXX" required>
+                    <div class="whatsapp-preview"><i class="fab fa-whatsapp"></i> Used for group invites & announcements</div>
+                </div>
+                <div class="form-group">
+                    <label>Select Your Branch *</label>
+                    <select id="branch">
+                        <option value="Gold Zone">👑 Gold Zone</option>
+                        <option value="Aura Zone">✨ Aura Zone</option>
+                        <option value="Soul Zone">👻 Soul Zone</option>
+                        <option value="Pastel Zone">🎨 Pastel Zone</option>
+                        <option value="Velvet Zone">🍷 Velvet Zone</option>
+                        <option value="Ray Zone">⚡ Ray Zone</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Password *</label>
+                    <input type="password" id="password" placeholder="Create a strong password" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password *</label>
+                    <input type="password" id="confirmPwd" placeholder="Confirm password" required>
+                </div>
+                <div class="form-group">
+                    <label>Security Check *</label>
+                    <div class="captcha-box">
+                        <div class="captcha-code" id="captchaQuestion">5 + 3 = ?</div>
+                        <input type="text" id="captchaInput" placeholder="Your answer" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" id="submitRegBtn">Submit Application →</button>
+            </form>
+            <div id="regMsg" style="margin-top: 15px;"></div>
+        </div>
+    </div>
+
+    <div class="admin-link">
+        <i class="fas fa-chalkboard-user"></i> <a href="#" id="adminViewBtn">📊 Admin Dashboard (View Applications)</a>
+    </div>
+    <footer>© Fun Corner — your exclusive Instagram family</footer>
+
+    <!-- Modal for success -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-check-circle" style="font-size: 2.5rem; color: #6fcf97;"></i>
+            <h3 style="margin: 1rem 0;">🎉 Application Submitted!</h3>
+            <p id="modalMessage"></p>
+            <button class="btn-primary" id="closeModalBtn" style="margin-top: 1rem;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // ======================== PARTICLE BACKGROUND ========================
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.opacity = Math.random() * 0.4 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(80, Math.floor(window.innerWidth * 0.15));
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let p of particles) {
+                p.update();
+                p.draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        initParticles();
+        animateParticles();
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+
+        // ======================== TYPING ANIMATION ========================
+        const phrases = ["Become a legend", "Join exclusive zones", "Unlock the vibe", "Fun Corner awaits"];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        const typingDiv = document.getElementById('typingText');
+        let isDeleting = false;
+
+        function typeEffect() {
+            const current = phrases[phraseIndex];
+            if (isDeleting) {
+                typingDiv.textContent = current.substring(0, charIndex - 1);
+                charIndex--;
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    setTimeout(typeEffect, 800);
+                    return;
+                }
+            } else {
+                typingDiv.textContent = current.substring(0, charIndex + 1);
+                charIndex++;
+                if (charIndex === current.length) {
+                    isDeleting = true;
+                    setTimeout(typeEffect, 2000);
+                    return;
+                }
+            }
+            setTimeout(typeEffect, isDeleting ? 60 : 120);
+        }
+        typeEffect();
+
+        // ======================== APP LOGIC ========================
+        const branchLinks = {
+            "Gold Zone": "https://chat.whatsapp.com/GoldEliteZone",
+            "Aura Zone": "https://chat.whatsapp.com/AuraMystic",
+            "Soul Zone": "https://chat.whatsapp.com/SoulVibes",
+            "Pastel Zone": "https://chat.whatsapp.com/PastelDream",
+            "Velvet Zone": "https://chat.whatsapp.com/VelvetLounge",
+            "Ray Zone": "https://chat.whatsapp.com/RayEnergy"
+        };
+
+        function getBranchUsers(branchName) {
+            let all = JSON.parse(localStorage.getItem("funCornerUsers")) || [];
+            return all.filter(u => u.branch === branchName);
+        }
+
+        function generateMemberNumber(branchName) {
+            const users = getBranchUsers(branchName);
+            const prefix = branchName.split(" ")[0].substring(0,3).toUpperCase();
+            const count = users.length + 1;
+            return `${prefix}-${String(count).padStart(3,'0')}`;
+        }
+
+        function saveUser(userData) {
+            let allUsers = JSON.parse(localStorage.getItem("funCornerUsers")) || [];
+            allUsers.push(userData);
+            localStorage.setItem("funCornerUsers", JSON.stringify(allUsers));
+            let branchDB = JSON.parse(localStorage.getItem("branch_applications")) || {};
+            if(!branchDB[userData.branch]) branchDB[userData.branch] = [];
+            branchDB[userData.branch].push(userData);
+            localStorage.setItem("branch_applications", JSON.stringify(branchDB));
+        }
+
+        function sendEmailSimulation(email, memberNumber, branch, gcLink, whatsapp) {
+            alert(`📧 Email simulation:\n\nTo: ${email}\nSubject: Welcome to Fun Corner!\n\nYour registration for ${branch} is approved!\nMember ID: ${memberNumber}\nWhatsApp: ${whatsapp}\nJoin group: ${gcLink}\n\nStay legendary!`);
+        }
+
+        function showAdminDashboard() {
+            let allUsers = JSON.parse(localStorage.getItem("funCornerUsers")) || [];
+            if(allUsers.length === 0) {
+                alert("No applications yet.");
+                return;
+            }
+            let grouped = {};
+            allUsers.forEach(u => {
+                if(!grouped[u.branch]) grouped[u.branch] = [];
+                grouped[u.branch].push(u);
+            });
+            let html = `<div style="max-height:70vh; overflow-y:auto;"><h3>📋 All Registrations (${allUsers.length})</h3>`;
+            for(let branch in grouped) {
+                html += `<div style="margin:1rem 0; border-left: 3px solid #E1306C; padding-left:1rem;"><strong>🏆 ${branch}</strong> (${grouped[branch].length})<ul>`;
+                grouped[branch].forEach(user => {
+                    html += `<li><strong>${user.fullName}</strong> | @${user.igUsername} | 📞 ${user.whatsapp} | ID: ${user.memberNumber}</li>`;
+                });
+                html += `</ul></div>`;
+            }
+            html += `</div><button id="closeAdminBtn" class="btn-primary" style="margin-top:1rem;">Close</button>`;
+            const modal = document.createElement('div');
+            modal.className = 'modal active';
+            modal.innerHTML = `<div class="modal-content" style="max-width:600px;">${html}</div>`;
+            document.body.appendChild(modal);
+            modal.querySelector('#closeAdminBtn').addEventListener('click', () => modal.remove());
+        }
+
+        // Step navigation
+        const steps = [document.getElementById('step0'), document.getElementById('step1'), document.getElementById('step2')];
+        function showStep(index) {
+            steps.forEach((s, i) => s.classList.toggle('active', i === index));
+        }
+
+        // Step 0
+        const acceptCheck = document.getElementById('acceptRules');
+        const nextBtn0 = document.getElementById('nextStep0Btn');
+        acceptCheck.addEventListener('change', () => { nextBtn0.disabled = !acceptCheck.checked; });
+        nextBtn0.addEventListener('click', () => {
+            if(acceptCheck.checked) showStep(1);
+            else alert("Please accept the rules to continue.");
+        });
+
+        // Bio verification OCR
+        const copyBioBtn = document.getElementById('copyBioBtn');
+        const bioTemplate = document.getElementById('bioTemplate').innerText;
+        copyBioBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(bioTemplate);
+            alert("✅ Bio text copied! Set this in your Instagram bio.");
+        });
+
+        const verifyBtn = document.getElementById('verifyBioBtn');
+        const bioScreenshot = document.getElementById('bioScreenshot');
+        const verifyMsgDiv = document.getElementById('verifyMsg');
+        const requiredBio = "Member of : @Funconer.11";
+        function normalizeText(t) { return t.toLowerCase().replace(/\s+/g, ' ').trim(); }
+
+        verifyBtn.addEventListener('click', async () => {
+            verifyMsgDiv.innerHTML = '';
+            if(!bioScreenshot.files || bioScreenshot.files.length === 0) {
+                verifyMsgDiv.innerHTML = '<span class="error-msg"><i class="fas fa-image"></i> Please upload a screenshot of your bio.</span>';
+                return;
+            }
+            const file = bioScreenshot.files[0];
+            if(!file.type.startsWith('image/')) {
+                verifyMsgDiv.innerHTML = '<span class="error-msg">File must be an image (jpg, png, etc).</span>';
+                return;
+            }
+            verifyMsgDiv.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Analyzing screenshot with OCR...<div class="ocr-progress">Extracting text...</div>';
+            verifyBtn.disabled = true;
+            try {
+                const { data: { text } } = await Tesseract.recognize(file, 'eng', {
+                    logger: m => {
+                        if(m.status === 'recognizing text') {
+                            const progress = Math.round(m.progress * 100);
+                            const progDiv = document.querySelector('#verifyMsg .ocr-progress');
+                            if(progDiv) progDiv.innerText = `OCR: ${progress}%`;
+                        }
+                    }
+                });
+                const extracted = text.trim();
+                const contains = normalizeText(extracted).includes(normalizeText(requiredBio));
+                if(contains) {
+                    verifyMsgDiv.innerHTML = '<span class="success-msg"><i class="fas fa-check-circle"></i> Bio verified! Proceed to registration.</span>';
+                    setTimeout(() => showStep(2), 800);
+                } else {
+                    verifyMsgDiv.innerHTML = `<span class="error-msg"><i class="fas fa-times-circle"></i> Verification failed: "${requiredBio}" not found.<br><small>Detected: "${extracted.substring(0,100)}..."</small></span>`;
+                }
+            } catch(e) {
+                verifyMsgDiv.innerHTML = '<span class="error-msg">OCR error. Please retry with a clear image.</span>';
+            } finally {
+                verifyBtn.disabled = false;
+            }
+        });
+
+        // Registration form
+        const regForm = document.getElementById('regForm');
+        const regMsg = document.getElementById('regMsg');
+        let captchaAnswer = 8;
+        function refreshCaptcha() {
+            const n1 = Math.floor(Math.random() * 10) + 1;
+            const n2 = Math.floor(Math.random() * 10) + 1;
+            captchaAnswer = n1 + n2;
+            document.getElementById('captchaQuestion').innerText = `${n1} + ${n2} = ?`;
+        }
+        refreshCaptcha();
+
+        function validateWhatsapp(num) {
+            const digits = num.replace(/\D/g, '');
+            return digits.length >= 10 && digits.length <= 15;
+        }
+
+        regForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fullName = document.getElementById('fullName').value.trim();
+            const igUsername = document.getElementById('igUsername').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const whatsapp = document.getElementById('whatsapp').value.trim();
+            const branch = document.getElementById('branch').value;
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirmPwd').value;
+            const captcha = document.getElementById('captchaInput').value.trim();
+
+            if(!fullName || !igUsername || !email || !whatsapp || !branch || !password || !confirm) {
+                regMsg.innerHTML = '<span class="error-msg">All fields required.</span>';
+                return;
+            }
+            if(!validateWhatsapp(whatsapp)) {
+                regMsg.innerHTML = '<span class="error-msg">Invalid WhatsApp number (10-15 digits).</span>';
+                return;
+            }
+            if(password !== confirm) {
+                regMsg.innerHTML = '<span class="error-msg">Passwords do not match.</span>';
+                return;
+            }
+            if(parseInt(captcha) !== captchaAnswer) {
+                regMsg.innerHTML = '<span class="error-msg">Incorrect captcha.</span>';
+                refreshCaptcha();
+                document.getElementById('captchaInput').value = '';
+                return;
+            }
+
+            const memberNumber = generateMemberNumber(branch);
+            const gcLink = branchLinks[branch];
+            const userData = { fullName, igUsername, email, whatsapp, branch, memberNumber, password, registeredAt: new Date().toISOString() };
+            saveUser(userData);
+
+            const modalMsg = `
+                <strong>✅ Welcome to ${branch}!</strong><br>
+                Your Member ID: <strong>${memberNumber}</strong><br>
+                <i class="fab fa-whatsapp"></i> WhatsApp: ${whatsapp}<br>
+                <i class="fab fa-whatsapp"></i> Group: <a href="${gcLink}" target="_blank">${gcLink}</a><br>
+                📧 Confirmation email sent to ${email}<br>
+                <small>Admin will approve your entry soon.</small>
+            `;
+            document.getElementById('modalMessage').innerHTML = modalMsg;
+            document.getElementById('successModal').classList.add('active');
+            sendEmailSimulation(email, memberNumber, branch, gcLink, whatsapp);
+            regForm.reset();
+            refreshCaptcha();
+        });
+
+        document.getElementById('closeModalBtn').addEventListener('click', () => {
+            document.getElementById('successModal').classList.remove('active');
+            showStep(0);
+            acceptCheck.checked = false;
+            nextBtn0.disabled = true;
+            bioScreenshot.value = '';
+            verifyMsgDiv.innerHTML = '';
+            regMsg.innerHTML = '';
+            document.getElementById('fullName').value = '';
+            document.getElementById('igUsername').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('whatsapp').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('confirmPwd').value = '';
+            document.getElementById('captchaInput').value = '';
+            refreshCaptcha();
+        });
+
+        document.getElementById('adminViewBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            showAdminDashboard();
+        });
+    </script>
+</body>
+</html>

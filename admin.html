@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>🛡️ Admin Panel | Fun Corner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body {
+            background: #050508;
+            color: #fff;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --theme-color: #ffd700;
+            --theme-bg: rgba(255, 215, 0, 0.1);
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: var(--theme-color); border-radius: 5px; }
+
+        .sidebar {
+            width: 260px;
+            background: rgba(20, 20, 30, 0.85);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            transition: left 0.3s;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 200;
+            transform: translateX(-100%);
+        }
+        .sidebar.open {
+            transform: translateX(0);
+        }
+        .brand {
+            text-align: center;
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 20px;
+        }
+        .brand h2 { font-weight: 800; font-size: 1.5rem; color: var(--theme-color); }
+        .brand span { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+
+        .nav-links {
+            list-style: none;
+            padding: 0 15px;
+            flex: 1;
+        }
+        .nav-links li { margin-bottom: 5px; }
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 20px;
+            color: #aaa;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--theme-bg);
+            color: var(--theme-color);
+        }
+        .nav-links i { width: 20px; text-align: center; }
+
+        .logout-btn {
+            margin: 0 15px 20px;
+            padding: 12px 20px;
+            background: rgba(225, 48, 108, 0.1);
+            color: #E1306C;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid rgba(225, 48, 108, 0.3);
+            transition: 0.2s;
+        }
+        .logout-btn:hover {
+            background: #E1306C;
+            color: #fff;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 0;
+            transition: margin-left 0.3s;
+            width: 100%;
+            overflow-x: auto;
+        }
+        @media (min-width: 768px) {
+            .sidebar {
+                transform: translateX(0);
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .menu-toggle {
+                display: none;
+            }
+        }
+        .menu-toggle {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            z-index: 210;
+            border-radius: 12px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(10,10,15,0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .admin-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--theme-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #000;
+            transition: 0.3s;
+        }
+        .admin-details h4 { font-size: 1rem; margin-bottom: 2px; }
+        .admin-details p { font-size: 0.75rem; color: var(--theme-color); }
+
+        .simulator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.05);
+            padding: 6px 12px;
+            border-radius: 30px;
+        }
+        .simulator select {
+            background: transparent;
+            color: white;
+            border: none;
+            outline: none;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .dashboard-body {
+            padding: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: rgba(20,20,30,0.6);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.2s;
+        }
+        .stat-card:hover {
+            border-color: var(--theme-color);
+            transform: translateY(-3px);
+        }
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--theme-bg);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--theme-color);
+        }
+        .stat-info h3 { font-size: 1.6rem; font-weight: 800; }
+        .stat-info p { color: #888; font-size: 0.8rem; }
+
+        .table-container {
+            background: rgba(20,20,30,0.6);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .search-box {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            background: rgba(0,0,0,0.4);
+            padding: 5px 12px;
+            border-radius: 40px;
+        }
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 8px;
+            outline: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        th {
+            text-align: left;
+            padding: 12px;
+            color: #888;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            vertical-align: middle;
+        }
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .user-cell img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #333;
+        }
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .status-pending {
+            background: rgba(240,148,51,0.2);
+            color: #f09433;
+        }
+        .status-approved {
+            background: rgba(40,167,69,0.2);
+            color: #28a745;
+        }
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-act {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-approve { background: rgba(40,167,69,0.2); color: #28a745; }
+        .btn-approve:hover { background: #28a745; color: white; }
+        .btn-reject { background: rgba(220,53,69,0.2); color: #dc3545; }
+        .btn-reject:hover { background: #dc3545; color: white; }
+
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
+        }
+        .tab {
+            padding: 8px 18px;
+            border-radius: 30px;
+            background: transparent;
+            color: #aaa;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tab.active {
+            background: var(--theme-bg);
+            color: var(--theme-color);
+        }
+        .hidden-tab {
+            display: none;
+        }
+
+        @media (max-width: 767px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .table-container { padding: 15px; }
+            td, th { padding: 8px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <h2 id="brandName">Admin Panel</h2>
+            <span>Branch Control</span>
+        </div>
+        <ul class="nav-links">
+            <li><a class="nav-link active" data-tab="dashboard"><i class="fas fa-th-large"></i> Dashboard</a></li>
+            <li><a class="nav-link" data-tab="members"><i class="fas fa-users"></i> Member List</a></li>
+            <li><a class="nav-link" data-tab="requests"><i class="fas fa-user-clock"></i> Join Requests</a></li>
+        </ul>
+        <div class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</div>
+    </aside>
+
+    <main class="main-content">
+        <div class="bg-glow"></div>
+        <header class="header">
+            <div class="admin-info">
+                <div class="admin-avatar" id="adminIcon">👑</div>
+                <div class="admin-details">
+                    <h4 id="adminName">Admin</h4>
+                    <p id="adminRole">Fun Corner Admin</p>
+                </div>
+            </div>
+            <div class="simulator">
+                <i class="fas fa-exchange-alt"></i>
+                <select id="branchSelect">
+                    <option value="gold">Gold Zone 👑</option>
+                    <option value="aura">Aura Zone ✨</option>
+                    <option value="soul">Soul Zone 👻</option>
+                    <option value="pastel">Pastel Zone 🎨</option>
+                    <option value="velvet">Velvet Zone 🍷</option>
+                    <option value="ray">Ray Zone ⚡</option>
+                </select>
+            </div>
+        </header>
+
+        <div class="dashboard-body">
+            <!-- Dashboard tab content -->
+            <div id="dashboardTab" class="tab-content active-tab">
+                <h2 style="margin-bottom: 20px;">Branch Overview</h2>
+                <div class="stats-grid" id="statsGrid"></div>
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Recent Activity</h3>
+                    </div>
+                    <div id="recentActivity">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Members tab -->
+            <div id="membersTab" class="tab-content hidden-tab">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Approved Members</h3>
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="memberSearch" placeholder="Search name or IG...">
+                        </div>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table id="membersTable">
+                            <thead>
+                                <tr><th>Member</th><th>Member ID</th><th>WhatsApp</th><th>Joined</th></tr>
+                            </thead>
+                            <tbody id="membersTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Requests tab -->
+            <div id="requestsTab" class="tab-content hidden-tab">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Pending Join Requests</h3>
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="requestSearch" placeholder="Search...">
+                        </div>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table id="requestsTable">
+                            <thead>
+                                <tr><th>User</th><th>Contact</th><th>WhatsApp</th><th>Applied</th><th>Action</th></tr>
+                            </thead>
+                            <tbody id="requestsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ---------- AUTHENTICATION CHECK ----------
+        const isAdminLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true';
+        if (!isAdminLoggedIn) {
+            // Not logged in as admin, redirect to login page
+            window.location.href = 'login.html';
+        }
+
+        let currentBranch = sessionStorage.getItem('adminBranch') || 'gold';
+
+        // Branch configurations
+        const branchConfig = {
+            gold: { name: "Gold Zone", color: "#ffd700", icon: "👑", admin: "Gold Admin" },
+            aura: { name: "Aura Zone", color: "#c084fc", icon: "✨", admin: "Aura Admin" },
+            soul: { name: "Soul Zone", color: "#5bc0ff", icon: "👻", admin: "Soul Admin" },
+            pastel: { name: "Pastel Zone", color: "#f9a8d4", icon: "🎨", admin: "Pastel Admin" },
+            velvet: { name: "Velvet Zone", color: "#ff6b6b", icon: "🍷", admin: "Velvet Admin" },
+            ray: { name: "Ray Zone", color: "#ffb347", icon: "⚡", admin: "Ray Admin" }
+        };
+
+        function setTheme(branchKey) {
+            const config = branchConfig[branchKey];
+            if (!config) return;
+            document.documentElement.style.setProperty('--theme-color', config.color);
+            let hex = config.color.replace('#', '');
+            let r = parseInt(hex.substring(0,2),16);
+            let g = parseInt(hex.substring(2,4),16);
+            let b = parseInt(hex.substring(4,6),16);
+            document.documentElement.style.setProperty('--theme-bg', `rgba(${r},${g},${b},0.15)`);
+            document.getElementById('brandName').innerText = config.name;
+            document.getElementById('adminIcon').innerText = config.icon;
+            document.getElementById('adminName').innerText = config.admin;
+            document.getElementById('adminRole').innerText = `Admin • ${config.name}`;
+        }
+
+        function loadUsers() {
+            return JSON.parse(localStorage.getItem('funCornerUsers')) || [];
+        }
+
+        function saveUsers(users) {
+            localStorage.setItem('funCornerUsers', JSON.stringify(users));
+            let branchDB = {};
+            users.forEach(u => {
+                if (!branchDB[u.branch]) branchDB[u.branch] = [];
+                branchDB[u.branch].push(u);
+            });
+            localStorage.setItem('branch_applications', JSON.stringify(branchDB));
+        }
+
+        function getBranchUsers() {
+            let all = loadUsers();
+            return all.filter(u => u.branch === branchConfig[currentBranch].name);
+        }
+
+        function renderStats() {
+            let users = getBranchUsers();
+            let pending = users.filter(u => !u.approved).length;
+            let approved = users.filter(u => u.approved).length;
+            document.getElementById('statsGrid').innerHTML = `
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-info"><h3>${approved}</h3><p>Total Members</p></div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-user-plus"></i></div><div class="stat-info"><h3>${pending}</h3><p>Pending Requests</p></div></div>
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-line"></i></div><div class="stat-info"><h3>${users.length}</h3><p>Total Registrations</p></div></div>
+            `;
+            let recent = [...users].sort((a,b) => new Date(b.registeredAt) - new Date(a.registeredAt)).slice(0,5);
+            document.getElementById('recentActivity').innerHTML = recent.length ? `
+                <table><thead><tr><th>Name</th><th>Status</th><th>Date</th></tr></thead><tbody>
+                ${recent.map(u => `<tr><td>${u.fullName}</td><td><span class="status-badge ${u.approved ? 'status-approved' : 'status-pending'}">${u.approved ? 'Approved' : 'Pending'}</span></td><td>${new Date(u.registeredAt).toLocaleDateString()}</td></tr>`).join('')}
+                </tbody></table>
+            ` : '<p>No activity yet.</p>';
+        }
+
+        function renderMembers(searchTerm='') {
+            let users = getBranchUsers().filter(u => u.approved === true);
+            if (searchTerm) {
+                users = users.filter(u => u.fullName.toLowerCase().includes(searchTerm) || u.igUsername.toLowerCase().includes(searchTerm));
+            }
+            const tbody = document.getElementById('membersTableBody');
+            tbody.innerHTML = users.map(u => `
+                <tr>
+                    <td><div class="user-cell"><img src="https://ui-avatars.com/api/?name=${encodeURIComponent(u.fullName)}&background=random&color=fff&size=35"><div><strong>${u.fullName}</strong><br><span style="font-size:0.7rem;">@${u.igUsername}</span></div></div></td>
+                    <td>${u.memberNumber || '—'}</td>
+                    <td>${u.whatsapp}</td>
+                    <td>${new Date(u.registeredAt).toLocaleDateString()}</td>
+                </tr>
+            `).join('');
+            if (users.length === 0) tbody.innerHTML = '<tr><td colspan="4">No approved members found.</td></tr>';
+        }
+
+        function renderRequests(searchTerm='') {
+            let users = getBranchUsers().filter(u => !u.approved);
+            if (searchTerm) {
+                users = users.filter(u => u.fullName.toLowerCase().includes(searchTerm) || u.igUsername.toLowerCase().includes(searchTerm) || (u.email && u.email.toLowerCase().includes(searchTerm)));
+            }
+            const tbody = document.getElementById('requestsTableBody');
+            tbody.innerHTML = users.map(u => `
+                <tr>
+                    <td><div class="user-cell"><img src="https://ui-avatars.com/api/?name=${encodeURIComponent(u.fullName)}&background=random&color=fff"><div><strong>${u.fullName}</strong><br>@${u.igUsername}</div></div></td>
+                    <td>${u.email || '—'}</td>
+                    <td>${u.whatsapp}</td>
+                    <td>${new Date(u.registeredAt).toLocaleDateString()}</td>
+                    <td><div class="action-btns"><button class="btn-act btn-approve" onclick="approveRequest('${u.email}')"><i class="fas fa-check"></i></button><button class="btn-act btn-reject" onclick="rejectRequest('${u.email}')"><i class="fas fa-times"></i></button></div></td>
+                </tr>
+            `).join('');
+            if (users.length === 0) tbody.innerHTML = '<tr><td colspan="5">No pending requests.</td></tr>';
+        }
+
+        window.approveRequest = function(email) {
+            let users = loadUsers();
+            let user = users.find(u => u.email === email);
+            if (user && !user.approved) {
+                user.approved = true;
+                if (!user.memberNumber) {
+                    let branchUsers = users.filter(u => u.branch === user.branch && u.approved);
+                    let prefix = user.branch.split(' ')[0].substring(0,3).toUpperCase();
+                    let count = branchUsers.length + 1;
+                    user.memberNumber = `${prefix}-${String(count).padStart(3,'0')}`;
+                }
+                saveUsers(users);
+                renderStats();
+                renderRequests(document.getElementById('requestSearch').value.toLowerCase());
+                renderMembers(document.getElementById('memberSearch').value.toLowerCase());
+                alert(`✅ ${user.fullName} approved!`);
+            }
+        };
+
+        window.rejectRequest = function(email) {
+            if (confirm('Reject this request? The user will be removed.')) {
+                let users = loadUsers();
+                let filtered = users.filter(u => u.email !== email);
+                saveUsers(filtered);
+                renderStats();
+                renderRequests(document.getElementById('requestSearch').value.toLowerCase());
+                renderMembers(document.getElementById('memberSearch').value.toLowerCase());
+                alert('Request rejected and removed.');
+            }
+        };
+
+        function switchBranch(branchKey) {
+            currentBranch = branchKey;
+            sessionStorage.setItem('adminBranch', branchKey);
+            setTheme(branchKey);
+            renderStats();
+            renderMembers(document.getElementById('memberSearch')?.value.toLowerCase() || '');
+            renderRequests(document.getElementById('requestSearch')?.value.toLowerCase() || '');
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden-tab'));
+            document.getElementById(tabId + 'Tab').classList.remove('hidden-tab');
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            document.querySelector(`.nav-link[data-tab="${tabId}"]`).classList.add('active');
+            if (tabId === 'members') renderMembers(document.getElementById('memberSearch').value.toLowerCase());
+            if (tabId === 'requests') renderRequests(document.getElementById('requestSearch').value.toLowerCase());
+            if (tabId === 'dashboard') renderStats();
+        }
+
+        document.getElementById('memberSearch')?.addEventListener('input', (e) => renderMembers(e.target.value.toLowerCase()));
+        document.getElementById('requestSearch')?.addEventListener('input', (e) => renderRequests(e.target.value.toLowerCase()));
+        document.getElementById('branchSelect').value = currentBranch;
+        document.getElementById('branchSelect').addEventListener('change', (e) => switchBranch(e.target.value));
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchTab(link.getAttribute('data-tab'));
+            });
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            sessionStorage.removeItem('adminLoggedIn');
+            sessionStorage.removeItem('adminBranch');
+            window.location.href = 'login.html';
+        });
+
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+        });
+
+        // Initialize
+        setTheme(currentBranch);
+        renderStats();
+        renderMembers();
+        renderRequests();
+    </script>
+</body>
+</html>

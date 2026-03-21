@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>🔐 Login | Fun Corner Universe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #010101;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Canvas particle background */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Floating orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: floatOrb 12s infinite alternate ease-in-out;
+        }
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(225, 48, 108, 0.4);
+            top: -100px;
+            left: -80px;
+        }
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(240, 148, 51, 0.3);
+            bottom: -120px;
+            right: -80px;
+            animation-delay: -5s;
+        }
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: rgba(0, 242, 254, 0.2);
+            top: 40%;
+            left: 20%;
+            animation-duration: 18s;
+        }
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, 60px) scale(1.2); }
+        }
+
+        /* Login card */
+        .login-wrapper {
+            width: 100%;
+            max-width: 480px;
+            animation: slideUp 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            z-index: 10;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-card {
+            background: rgba(12, 12, 20, 0.75);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 36px;
+            padding: 32px 28px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #E1306C, #f09433, transparent);
+            border-radius: 2px;
+        }
+
+        /* Header with typing animation */
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .logo-icon {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #f09433, #E1306C);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 12px rgba(225, 48, 108, 0.5));
+            animation: pulseGlow 2s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { filter: drop-shadow(0 0 5px rgba(225,48,108,0.3)); }
+            100% { filter: drop-shadow(0 0 20px rgba(225,48,108,0.7)); }
+        }
+        .login-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, #fff, #E1306C);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .typing-text {
+            font-size: 0.9rem;
+            color: #aaa;
+            font-weight: 400;
+            height: 28px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            background: #E1306C;
+            margin-left: 2px;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Input fields */
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #bbb;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .input-field {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 28px;
+            transition: all 0.3s ease;
+        }
+        .input-field:focus-within {
+            border-color: #E1306C;
+            box-shadow: 0 0 12px rgba(225, 48, 108, 0.3);
+            background: rgba(0, 0, 0, 0.7);
+        }
+        .input-icon {
+            padding: 0 16px;
+            color: #888;
+            font-size: 1rem;
+        }
+        .input-field input {
+            flex: 1;
+            padding: 14px 16px 14px 0;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            width: 100%;
+        }
+        .input-field input::placeholder {
+            color: #666;
+        }
+        .toggle-password {
+            padding: 0 16px;
+            color: #888;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .toggle-password:hover {
+            color: #E1306C;
+        }
+
+        /* Extra options */
+        .extra-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            margin: 18px 0 24px;
+        }
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #aaa;
+            cursor: pointer;
+        }
+        .remember-me input {
+            accent-color: #E1306C;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+        .forgot-pass {
+            color: #E1306C;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .forgot-pass:hover {
+            color: #f09433;
+            text-decoration: underline;
+        }
+
+        /* Captcha */
+        .captcha-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 28px;
+            padding: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+        }
+        .captcha-box {
+            background: linear-gradient(145deg, #1a1a28, #0c0c18);
+            padding: 10px 16px;
+            border-radius: 24px;
+            font-family: monospace;
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            color: #00f2fe;
+            text-shadow: 0 0 4px rgba(0, 242, 254, 0.6);
+            user-select: none;
+            position: relative;
+            flex: 1;
+            text-align: center;
+        }
+        .captcha-box::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) rotate(-4deg);
+        }
+        .captcha-input {
+            flex: 2;
+            padding: 12px 12px;
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+            font-size: 1rem;
+            min-width: 120px;
+        }
+        .captcha-refresh {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 24px;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .captcha-refresh:hover {
+            background: #E1306C;
+            transform: rotate(180deg);
+        }
+
+        /* Buttons */
+        .action-buttons {
+            margin-top: 30px;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(95deg, #E1306C, #f09433);
+            border: none;
+            border-radius: 32px;
+            color: white;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: 0.2s;
+            box-shadow: 0 6px 14px rgba(225, 48, 108, 0.4);
+        }
+        .btn-login:active {
+            transform: scale(0.97);
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #666;
+            font-size: 0.75rem;
+            margin: 18px 0;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .divider::before {
+            margin-right: 14px;
+        }
+        .divider::after {
+            margin-left: 14px;
+        }
+        .btn-join {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            border-radius: 32px;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .btn-join:hover,
+        .btn-join:active {
+            border-color: #00f2fe;
+            color: #00f2fe;
+            background: rgba(0, 242, 254, 0.05);
+        }
+
+        /* Error message */
+        .error-message {
+            color: #ff6b6b;
+            font-size: 0.75rem;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.2s;
+            padding: 16px;
+        }
+        .modal.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-content {
+            background: #12121c;
+            border-radius: 28px;
+            padding: 1.8rem;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            border: 1px solid #E1306C;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 28px;
+            background: #1f1f2c;
+            border: 1px solid #333;
+            color: white;
+            margin: 15px 0;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        .modal-buttons button {
+            padding: 8px 20px;
+            border-radius: 30px;
+            background: transparent;
+            border: 1px solid #E1306C;
+            color: #E1306C;
+            cursor: pointer;
+        }
+        .modal-buttons button:first-child {
+            background: #E1306C;
+            color: white;
+        }
+
+        /* Admin hint */
+        .admin-hint {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.7rem;
+            color: #555;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 28px 20px;
+            }
+            .login-title {
+                font-size: 1.8rem;
+            }
+            .captcha-box {
+                font-size: 1rem;
+                letter-spacing: 2px;
+                padding: 8px 12px;
+            }
+            .captcha-input {
+                min-width: 100px;
+            }
+            .btn-login,
+            .btn-join {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="login-header">
+                <i class="fas fa-crown logo-icon"></i>
+                <h1 class="login-title">Welcome Back</h1>
+                <div class="typing-text">
+                    <span id="typedText"></span><span class="cursor">|</span>
+                </div>
+            </div>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <label>Email or Phone</label>
+                    <div class="input-field">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="text" id="loginIdentifier" placeholder="Your registered email" autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-field">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="loginPassword" placeholder="••••••••">
+                        <i class="fas fa-eye toggle-password" id="toggleEye"></i>
+                    </div>
+                </div>
+
+                <div class="extra-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="rememberCheckbox"> Remember Me
+                    </label>
+                    <span class="forgot-pass" id="forgotPassBtn">Forgot Password?</span>
+                </div>
+
+                <div class="input-group">
+                    <label>Security Verification</label>
+                    <div class="captcha-area">
+                        <div class="captcha-box" id="captchaText">ABCD</div>
+                        <input type="text" class="captcha-input" id="captchaInput" placeholder="Enter code" autocomplete="off">
+                        <button type="button" class="captcha-refresh" id="refreshCaptchaBtn"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                    <div id="captchaError" class="error-message" style="display: none;"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="submit" class="btn-login" id="loginBtn">
+                        <span>Secure Login</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <div class="divider">OR</div>
+                    <a href="register.html" class="btn-join">
+                        <i class="fas fa-user-plus"></i> Join Us
+                    </a>
+                </div>
+                <div id="loginError" class="error-message" style="margin-top: 16px; text-align: center;"></div>
+            </form>
+            <div class="admin-hint">
+                <i class="fas fa-shield-alt"></i> Admin: admin@funconer.com / admin123
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgotModal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-key" style="font-size: 2rem; color: #E1306C;"></i>
+            <h3 style="margin: 12px 0;">Reset Password</h3>
+            <p style="font-size: 0.85rem;">Enter your registered email and we'll send a reset link.</p>
+            <input type="email" id="resetEmail" placeholder="Your email address">
+            <div class="modal-buttons">
+                <button id="sendResetBtn">Send Link</button>
+                <button id="closeModalBtn">Cancel</button>
+            </div>
+            <div id="resetMsg" style="margin-top: 12px; font-size: 0.75rem;"></div>
+        </div>
+    </div>
+
+    <script>
+        // ======================== ANIMATED BACKGROUND (CANVAS PARTICLES) ========================
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = Math.min(100, Math.floor(window.innerWidth * 0.2));
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let p of particles) {
+                p.update();
+                p.draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        initParticles();
+        animateParticles();
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+
+        // ======================== TYPING ANIMATION ========================
+        const phrases = ["Access your zone", "Elite community awaits", "Stay legendary", "Fun Corner Universe"];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        const typedSpan = document.getElementById('typedText');
+        let isDeleting = false;
+
+        function typeEffect() {
+            const current = phrases[phraseIndex];
+            if (isDeleting) {
+                typedSpan.textContent = current.substring(0, charIndex - 1);
+                charIndex--;
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    setTimeout(typeEffect, 800);
+                    return;
+                }
+            } else {
+                typedSpan.textContent = current.substring(0, charIndex + 1);
+                charIndex++;
+                if (charIndex === current.length) {
+                    isDeleting = true;
+                    setTimeout(typeEffect, 2000);
+                    return;
+                }
+            }
+            setTimeout(typeEffect, isDeleting ? 60 : 120);
+        }
+        typeEffect();
+
+        // ======================== LOGIN LOGIC (including admin) ========================
+        const toggleEye = document.getElementById('toggleEye');
+        const passInput = document.getElementById('loginPassword');
+        toggleEye.addEventListener('click', () => {
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                toggleEye.classList.remove('fa-eye');
+                toggleEye.classList.add('fa-eye-slash');
+                toggleEye.style.color = '#E1306C';
+            } else {
+                passInput.type = 'password';
+                toggleEye.classList.remove('fa-eye-slash');
+                toggleEye.classList.add('fa-eye');
+                toggleEye.style.color = '#888';
+            }
+        });
+
+        // Captcha generation
+        let currentCaptcha = '';
+        function generateCaptcha() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let captcha = '';
+            for (let i = 0; i < 5; i++) {
+                captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            currentCaptcha = captcha;
+            document.getElementById('captchaText').innerText = captcha;
+            document.getElementById('captchaInput').value = '';
+            document.getElementById('captchaError').style.display = 'none';
+        }
+        document.getElementById('refreshCaptchaBtn').addEventListener('click', generateCaptcha);
+        generateCaptcha();
+
+        // Load stored credentials if "Remember Me" was checked
+        function loadStoredCredentials() {
+            const stored = localStorage.getItem('funCornerLogin');
+            if (stored) {
+                try {
+                    const { email, password } = JSON.parse(stored);
+                    document.getElementById('loginIdentifier').value = email;
+                    document.getElementById('loginPassword').value = password;
+                    document.getElementById('rememberCheckbox').checked = true;
+                } catch(e) {}
+            }
+        }
+        loadStoredCredentials();
+
+        // Forgot password modal
+        const forgotBtn = document.getElementById('forgotPassBtn');
+        const modal = document.getElementById('forgotModal');
+        const closeModal = document.getElementById('closeModalBtn');
+        const sendResetBtn = document.getElementById('sendResetBtn');
+        const resetMsg = document.getElementById('resetMsg');
+
+        forgotBtn.addEventListener('click', () => modal.classList.add('active'));
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('active');
+            resetMsg.innerHTML = '';
+            document.getElementById('resetEmail').value = '';
+        });
+        sendResetBtn.addEventListener('click', () => {
+            const email = document.getElementById('resetEmail').value.trim();
+            if (!email) {
+                resetMsg.innerHTML = '<span style="color:#ff6b6b;">Please enter your email.</span>';
+                return;
+            }
+            const users = JSON.parse(localStorage.getItem('funCornerUsers')) || [];
+            const userExists = users.some(u => u.email === email);
+            if (!userExists) {
+                resetMsg.innerHTML = '<span style="color:#ff6b6b;">No account found with that email.</span>';
+                return;
+            }
+            resetMsg.innerHTML = '<span style="color:#6fcf97;">✅ Reset link sent to ' + email + ' (simulated).</span>';
+            setTimeout(() => {
+                modal.classList.remove('active');
+                resetMsg.innerHTML = '';
+                document.getElementById('resetEmail').value = '';
+            }, 1500);
+        });
+
+        // Login handler
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginError = document.getElementById('loginError');
+
+        // Admin credentials (hardcoded)
+        const ADMIN_EMAIL = "admin@funconer.com";
+        const ADMIN_PASS = "admin123";
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const identifier = document.getElementById('loginIdentifier').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const captchaInput = document.getElementById('captchaInput').value.toUpperCase();
+
+            loginError.innerHTML = '';
+            document.getElementById('captchaError').style.display = 'none';
+
+            if (captchaInput !== currentCaptcha) {
+                document.getElementById('captchaError').innerHTML = '<i class="fas fa-times-circle"></i> Incorrect captcha code.';
+                document.getElementById('captchaError').style.display = 'flex';
+                generateCaptcha();
+                return;
+            }
+
+            // Check admin login first
+            if (identifier === ADMIN_EMAIL && password === ADMIN_PASS) {
+                // Admin login: set admin session and redirect to admin panel
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                sessionStorage.setItem('adminBranch', 'gold'); // default branch, can be changed later
+                window.location.href = 'admin.html';
+                return;
+            }
+
+            // Normal user login
+            const users = JSON.parse(localStorage.getItem('funCornerUsers')) || [];
+            const user = users.find(u => u.email === identifier);
+            if (!user) {
+                loginError.innerHTML = '<i class="fas fa-user-slash"></i> No account found with this email.';
+                return;
+            }
+            if (user.password !== password) {
+                loginError.innerHTML = '<i class="fas fa-lock"></i> Incorrect password.';
+                return;
+            }
+
+            // Show loading state
+            const originalBtnText = loginBtn.innerHTML;
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+            loginBtn.disabled = true;
+
+            setTimeout(() => {
+                // Save login session
+                localStorage.setItem('funCornerLoggedIn', JSON.stringify({
+                    fullName: user.fullName,
+                    email: user.email,
+                    branch: user.branch,
+                    memberNumber: user.memberNumber
+                }));
+
+                // Save credentials if "Remember Me" is checked
+                if (document.getElementById('rememberCheckbox').checked) {
+                    localStorage.setItem('funCornerLogin', JSON.stringify({ email: identifier, password: password }));
+                } else {
+                    localStorage.removeItem('funCornerLogin');
+                }
+
+                // Redirect to main page (index.html)
+                window.location.href = 'index.html';
+            }, 1200);
+        });
+    </script>
+</body>
+</html>
