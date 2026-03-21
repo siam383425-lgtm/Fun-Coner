@@ -45,26 +45,26 @@
             animation: floatOrb 12s infinite alternate ease-in-out;
         }
         .orb-1 {
-            width: 300px;
-            height: 300px;
+            width: 250px;
+            height: 250px;
             background: rgba(225, 48, 108, 0.4);
-            top: -100px;
+            top: -80px;
             left: -80px;
         }
         .orb-2 {
-            width: 400px;
-            height: 400px;
+            width: 320px;
+            height: 320px;
             background: rgba(240, 148, 51, 0.3);
-            bottom: -120px;
+            bottom: -100px;
             right: -80px;
             animation-delay: -5s;
         }
         .orb-3 {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             background: rgba(0, 242, 254, 0.2);
             top: 40%;
-            left: 20%;
+            left: 15%;
             animation-duration: 18s;
         }
         @keyframes floatOrb {
@@ -77,29 +77,24 @@
             background: rgba(18, 18, 28, 0.8);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 32px;
-            padding: 1.8rem 1.5rem;
+            border-radius: 28px;
+            padding: 1.5rem 1rem;
             max-width: 700px;
-            margin: 0 auto 1.5rem auto;
+            margin: 0 auto 1rem auto;
             transition: all 0.3s;
             position: relative;
             z-index: 2;
-            animation: cardFloat 3s infinite alternate ease-in-out;
-        }
-        @keyframes cardFloat {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-5px); }
         }
 
         /* Step badge with pulse */
         .step-badge {
             display: inline-block;
             background: linear-gradient(95deg, #E1306C, #f09819);
-            padding: 0.3rem 1.2rem;
+            padding: 0.3rem 1rem;
             border-radius: 40px;
             font-weight: 700;
-            font-size: 0.75rem;
-            margin-bottom: 1.2rem;
+            font-size: 0.7rem;
+            margin-bottom: 1rem;
             animation: pulseGlow 2s infinite alternate;
         }
         @keyframes pulseGlow {
@@ -108,79 +103,54 @@
         }
 
         h2 {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             background: linear-gradient(135deg, #fff, #E1306C);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            position: relative;
-            display: inline-block;
-        }
-        .typing-header {
-            font-size: 1rem;
-            color: #aaa;
-            margin-bottom: 1.5rem;
-            height: 28px;
         }
 
         /* Rule list */
         .rule-list {
             background: rgba(0, 0, 0, 0.4);
             border-radius: 1.5rem;
-            padding: 1.2rem;
-            margin: 1.2rem 0;
+            padding: 1rem;
+            margin: 1rem 0;
             list-style: none;
         }
         .rule-list li {
-            margin: 0.8rem 0;
+            margin: 0.7rem 0;
             display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.9rem;
-            transition: transform 0.2s;
-        }
-        .rule-list li:hover {
-            transform: translateX(5px);
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.85rem;
+            line-height: 1.4;
         }
         .rule-list i {
             color: #E1306C;
-            width: 24px;
-            text-align: center;
+            width: 22px;
+            margin-top: 2px;
+            font-size: 0.8rem;
         }
 
         /* Buttons */
         .btn-primary {
             background: linear-gradient(95deg, #E1306C, #f09433);
             border: none;
-            padding: 14px 20px;
+            padding: 12px 16px;
             font-weight: 700;
             border-radius: 40px;
             color: white;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
             width: 100%;
-            font-size: 1rem;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-primary::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        .btn-primary:active::after {
-            left: 100%;
         }
         .btn-primary:active {
             transform: scale(0.97);
@@ -188,27 +158,23 @@
         .btn-outline {
             background: transparent;
             border: 1px solid #E1306C;
-            padding: 10px 18px;
+            padding: 8px 16px;
             border-radius: 40px;
             color: #E1306C;
             cursor: pointer;
             font-weight: 600;
-            transition: 0.2s;
-        }
-        .btn-outline:active {
-            background: rgba(225, 48, 108, 0.1);
-            transform: scale(0.97);
+            font-size: 0.85rem;
         }
 
         /* Form elements */
         .form-group {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
         }
         label {
             font-weight: 500;
             display: block;
             margin-bottom: 6px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             letter-spacing: 0.5px;
             color: #ccc;
         }
@@ -216,44 +182,39 @@
             width: 100%;
             background: rgba(20, 20, 30, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 14px 18px;
-            border-radius: 32px;
+            padding: 12px 16px;
+            border-radius: 28px;
             color: white;
             font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: all 0.3s;
         }
         input:focus, select:focus {
             outline: none;
             border-color: #E1306C;
-            box-shadow: 0 0 0 3px rgba(225, 48, 108, 0.2);
-            transform: scale(1.01);
+            box-shadow: 0 0 0 2px rgba(225, 48, 108, 0.2);
         }
 
         /* Copy box */
         .copy-box {
             background: #1a1a24;
-            padding: 12px 16px;
-            border-radius: 32px;
+            padding: 10px 12px;
+            border-radius: 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 1rem;
             flex-wrap: wrap;
-            transition: all 0.3s;
-        }
-        .copy-box:hover {
-            background: #252535;
         }
         .copy-text {
             font-family: monospace;
             word-break: break-all;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             flex: 1;
         }
         .bio-preview {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #aaa;
             margin-top: 6px;
         }
@@ -261,26 +222,20 @@
         /* Step containers */
         .step-container {
             display: none;
-            animation: fadeSlide 0.5s ease;
+            animation: fadeSlide 0.4s ease;
         }
         .step-container.active {
             display: block;
         }
         @keyframes fadeSlide {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Error & success messages */
         .error-msg {
             color: #ff6b6b;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             margin-top: 6px;
             display: flex;
             align-items: center;
@@ -297,33 +252,28 @@
         /* Captcha */
         .captcha-box {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
             flex-wrap: wrap;
         }
         .captcha-code {
             background: #2c2c3a;
-            padding: 12px 18px;
-            border-radius: 32px;
+            padding: 10px 14px;
+            border-radius: 28px;
             font-weight: bold;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             font-family: monospace;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #00f2fe;
-            animation: captchaGlow 1.5s infinite alternate;
-        }
-        @keyframes captchaGlow {
-            0% { text-shadow: 0 0 0px #00f2fe; }
-            100% { text-shadow: 0 0 5px #00f2fe; }
         }
         .captcha-box input {
             flex: 2;
-            min-width: 130px;
+            min-width: 120px;
         }
 
         /* WhatsApp preview */
         .whatsapp-preview {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #25D366;
             margin-top: 4px;
         }
@@ -339,16 +289,12 @@
         .admin-link a {
             color: #E1306C;
             text-decoration: none;
-            transition: 0.2s;
-        }
-        .admin-link a:hover {
-            text-shadow: 0 0 8px rgba(225,48,108,0.5);
         }
         footer {
             text-align: center;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             color: #555;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             position: relative;
             z-index: 2;
         }
@@ -377,22 +323,17 @@
         }
         .modal-content {
             background: #12121c;
-            border-radius: 32px;
-            padding: 1.8rem;
+            border-radius: 28px;
+            padding: 1.5rem;
             max-width: 500px;
             width: 90%;
             text-align: center;
             border: 1px solid #E1306C;
             max-height: 80vh;
             overflow-y: auto;
-            animation: modalPop 0.3s ease;
-        }
-        @keyframes modalPop {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
         .ocr-progress {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #aaa;
             margin-top: 8px;
         }
@@ -400,22 +341,23 @@
         /* Mobile specific tweaks */
         @media (max-width: 550px) {
             body {
-                padding: 0.8rem;
+                padding: 0.6rem;
             }
             .glass-card {
-                padding: 1.5rem 1rem;
+                padding: 1.2rem 0.8rem;
             }
             h2 {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
             }
             .rule-list li {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
             }
             .btn-primary, .btn-outline {
-                padding: 12px 16px;
+                padding: 10px 14px;
             }
             input, select {
-                padding: 12px 16px;
+                padding: 10px 14px;
+                font-size: 0.85rem;
             }
             .captcha-box {
                 flex-direction: column;
@@ -441,23 +383,26 @@
     <div class="orb orb-3"></div>
 
     <div class="glass-card">
-        <div style="text-align: center; margin-bottom: 1rem;">
-            <i class="fas fa-crown" style="font-size: 2.2rem; background: linear-gradient(135deg,#E1306C,#f09433); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation: pulseGlow 2s infinite alternate;"></i>
-            <h1 style="font-size: 1.8rem;">Join The Elite</h1>
-            <div class="typing-header" id="typingText"></div>
+        <div style="text-align: center; margin-bottom: 0.8rem;">
+            <i class="fas fa-crown" style="font-size: 2rem; background: linear-gradient(135deg,#E1306C,#f09433); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent;"></i>
+            <h1 style="font-size: 1.6rem;">Join The Elite</h1>
+            <p style="color:#aaa; font-size: 0.8rem;">Become part of Fun Corner Universe</p>
         </div>
 
-        <!-- STEP 0: RULES -->
+        <!-- STEP 0: RULES (UPDATED) -->
         <div id="step0" class="step-container active">
             <div class="step-badge"><i class="fas fa-shield-alt"></i> Step 1 / 3</div>
-            <h2>📜 Community Codex</h2>
-            <p>Before entering, accept the sacred rules of Fun Corner:</p>
+            <h2>📜 Fun Corner Rules</h2>
             <ul class="rule-list">
-                <li><i class="fas fa-heart"></i> Respect all members – zero toxicity</li>
-                <li><i class="fas fa-crown"></i> Active participation keeps zones alive</li>
-                <li><i class="fas fa-ban"></i> No spam or self-promotion without permission</li>
-                <li><i class="fas fa-user-check"></i> Must have Instagram bio with our mention</li>
-                <li><i class="fas fa-gem"></i> Follow admin guidelines & enjoy exclusive perks</li>
+                <li><i class="fas fa-ban"></i> <strong>1.</strong> Bad language use kora jabe nhh !! 🚫</li>
+                <li><i class="fas fa-comment-slash"></i> <strong>2.</strong> text off boler por text dile kick ..♨️</li>
+                <li><i class="fas fa-clock"></i> <strong>3.</strong> Group a active na thakle kick💥💯</li>
+                <li><i class="fas fa-heart-broken"></i> <strong>4.</strong> se*ual kono memes reels pic dea jabe nh 📛</li>
+                <li><i class="fas fa-user-friends"></i> <strong>5.</strong> kawke disrespect kora jbe nh,⚠️</li>
+                <li><i class="fas fa-user-edit"></i> <strong>6.</strong> admin er permission chara, theme, pic, name, change kora jabe nh ;🚫❌</li>
+                <li><i class="fas fa-smile-wink"></i> <strong>7.</strong> Jar Sathe Free Nh Tar Sathe Moja Kora Jabe nh! Kono Fun Jate Limit Cross nh kore 📌</li>
+                <li><i class="fas fa-users"></i> <strong>8.</strong> Fun Corner cara Onno kono Random Gc te Add thaka Jabe nh 📌</li>
+                <li><i class="fab fa-instagram"></i> <strong>9.</strong> Add Howar jonno Group Account Bio te mention kora Lagbe 💗</li>
             </ul>
             <div class="form-group">
                 <label><input type="checkbox" id="acceptRules"> I agree to the Terms & Conditions</label>
@@ -465,25 +410,25 @@
             <button class="btn-primary" id="nextStep0Btn" disabled>Continue to Bio Setup →</button>
         </div>
 
-        <!-- STEP 1: BIO VERIFICATION -->
+        <!-- STEP 1: BIO VERIFICATION (UPDATED TEXT) -->
         <div id="step1" class="step-container">
             <div class="step-badge"><i class="fab fa-instagram"></i> Step 2 / 3</div>
             <h2>📸 Verify Your Instagram Bio</h2>
             <p>You must set your Instagram bio exactly as:</p>
             <div class="copy-box">
-                <span class="copy-text" id="bioTemplate">Member of : @Funconer.11</span>
-                <button class="btn-outline" id="copyBioBtn" style="padding:8px 14px;"><i class="far fa-copy"></i> Copy</button>
+                <span class="copy-text" id="bioTemplate">𝐌𝐞𝐦𝐛𝐞𝐫 𝐎𝐟 : @fc0ff1c1als_143</span>
+                <button class="btn-outline" id="copyBioBtn" style="padding:6px 12px;"><i class="far fa-copy"></i> Copy</button>
             </div>
             <div class="form-group">
                 <label>Screenshot of your bio (proof) *</label>
-                <input type="file" id="bioScreenshot" accept="image/*" capture="environment">
+                <input type="file" id="bioScreenshot" accept="image/*">
                 <div class="bio-preview">Upload a clear screenshot showing your Instagram bio.</div>
             </div>
             <button class="btn-primary" id="verifyBioBtn">Verify Bio →</button>
             <div id="verifyMsg" style="margin-top: 12px;"></div>
         </div>
 
-        <!-- STEP 2: REGISTRATION FORM -->
+        <!-- STEP 2: REGISTRATION FORM (unchanged) -->
         <div id="step2" class="step-container">
             <div class="step-badge"><i class="fas fa-pen-alt"></i> Step 3 / 3</div>
             <h2>✨ Final Details</h2>
@@ -545,8 +490,8 @@
     <!-- Modal for success -->
     <div id="successModal" class="modal">
         <div class="modal-content">
-            <i class="fas fa-check-circle" style="font-size: 2.5rem; color: #6fcf97;"></i>
-            <h3 style="margin: 1rem 0;">🎉 Application Submitted!</h3>
+            <i class="fas fa-check-circle" style="font-size: 2rem; color: #6fcf97;"></i>
+            <h3 style="margin: 0.8rem 0;">🎉 Application Submitted!</h3>
             <p id="modalMessage"></p>
             <button class="btn-primary" id="closeModalBtn" style="margin-top: 1rem;">Close</button>
         </div>
@@ -569,10 +514,10 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.3;
-                this.opacity = Math.random() * 0.4 + 0.1;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.2;
+                this.opacity = Math.random() * 0.3 + 0.1;
             }
             update() {
                 this.x += this.speedX;
@@ -592,7 +537,7 @@
 
         function initParticles() {
             particles = [];
-            const count = Math.min(80, Math.floor(window.innerWidth * 0.15));
+            const count = Math.min(60, Math.floor(window.innerWidth * 0.12));
             for (let i = 0; i < count; i++) {
                 particles.push(new Particle());
             }
@@ -611,37 +556,6 @@
             resizeCanvas();
             initParticles();
         });
-
-        // ======================== TYPING ANIMATION ========================
-        const phrases = ["Become a legend", "Join exclusive zones", "Unlock the vibe", "Fun Corner awaits"];
-        let phraseIndex = 0;
-        let charIndex = 0;
-        const typingDiv = document.getElementById('typingText');
-        let isDeleting = false;
-
-        function typeEffect() {
-            const current = phrases[phraseIndex];
-            if (isDeleting) {
-                typingDiv.textContent = current.substring(0, charIndex - 1);
-                charIndex--;
-                if (charIndex === 0) {
-                    isDeleting = false;
-                    phraseIndex = (phraseIndex + 1) % phrases.length;
-                    setTimeout(typeEffect, 800);
-                    return;
-                }
-            } else {
-                typingDiv.textContent = current.substring(0, charIndex + 1);
-                charIndex++;
-                if (charIndex === current.length) {
-                    isDeleting = true;
-                    setTimeout(typeEffect, 2000);
-                    return;
-                }
-            }
-            setTimeout(typeEffect, isDeleting ? 60 : 120);
-        }
-        typeEffect();
 
         // ======================== APP LOGIC ========================
         const branchLinks = {
@@ -721,7 +635,7 @@
             else alert("Please accept the rules to continue.");
         });
 
-        // Bio verification OCR
+        // Bio verification OCR (with new required text)
         const copyBioBtn = document.getElementById('copyBioBtn');
         const bioTemplate = document.getElementById('bioTemplate').innerText;
         copyBioBtn.addEventListener('click', () => {
@@ -732,8 +646,23 @@
         const verifyBtn = document.getElementById('verifyBioBtn');
         const bioScreenshot = document.getElementById('bioScreenshot');
         const verifyMsgDiv = document.getElementById('verifyMsg');
-        const requiredBio = "Member of : @Funconer.11";
-        function normalizeText(t) { return t.toLowerCase().replace(/\s+/g, ' ').trim(); }
+        const requiredBio = "𝐌𝐞𝐦𝐛𝐞𝐫 𝐎𝐟 : @fc0ff1c1als_143";
+        function normalizeText(t) {
+            // Normalize Unicode characters (convert special bold letters to normal for comparison)
+            return t.toLowerCase().replace(/[^\w\s@:]/g, '').replace(/\s+/g, ' ').trim();
+        }
+        function normalizeForCompare(text) {
+            // Convert special Unicode bold letters to plain Latin
+            const boldMap = {
+                '𝐌': 'M', '𝐞': 'e', '𝐦': 'm', '𝐛': 'b', '𝐫': 'r', '𝐎': 'O', '𝐟': 'f',
+                '𝐅': 'F', '𝐜': 'c', '𝐥': 'l', '𝐬': 's', '𝐧': 'n', '𝐝': 'd'
+            };
+            let normalized = text;
+            for (let [key, val] of Object.entries(boldMap)) {
+                normalized = normalized.replace(new RegExp(key, 'g'), val);
+            }
+            return normalized.toLowerCase().replace(/\s+/g, ' ').trim();
+        }
 
         verifyBtn.addEventListener('click', async () => {
             verifyMsgDiv.innerHTML = '';
@@ -759,14 +688,17 @@
                     }
                 });
                 const extracted = text.trim();
-                const contains = normalizeText(extracted).includes(normalizeText(requiredBio));
+                const normalizedExtracted = normalizeForCompare(extracted);
+                const normalizedRequired = normalizeForCompare(requiredBio);
+                const contains = normalizedExtracted.includes(normalizedRequired);
                 if(contains) {
                     verifyMsgDiv.innerHTML = '<span class="success-msg"><i class="fas fa-check-circle"></i> Bio verified! Proceed to registration.</span>';
                     setTimeout(() => showStep(2), 800);
                 } else {
-                    verifyMsgDiv.innerHTML = `<span class="error-msg"><i class="fas fa-times-circle"></i> Verification failed: "${requiredBio}" not found.<br><small>Detected: "${extracted.substring(0,100)}..."</small></span>`;
+                    verifyMsgDiv.innerHTML = `<span class="error-msg"><i class="fas fa-times-circle"></i> Verification failed: The required bio text was not found.<br><small>Detected text: "${extracted.substring(0,150)}..."</small></span>`;
                 }
             } catch(e) {
+                console.error(e);
                 verifyMsgDiv.innerHTML = '<span class="error-msg">OCR error. Please retry with a clear image.</span>';
             } finally {
                 verifyBtn.disabled = false;
