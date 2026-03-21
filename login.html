@@ -534,7 +534,7 @@
                 <div id="loginError" class="error-message" style="margin-top: 16px; text-align: center;"></div>
             </form>
             <div class="admin-hint">
-                <i class="fas fa-shield-alt"></i> Admin: admin@funconer.com / admin123
+                <i class="fas fa-shield-alt"></i> Admin: use admin credentials
             </div>
         </div>
     </div>
@@ -555,7 +555,7 @@
     </div>
 
     <script>
-        // ======================== ANIMATED BACKGROUND (CANVAS PARTICLES) ========================
+        // ======================== ANIMATED BACKGROUND ========================
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -645,7 +645,7 @@
         }
         typeEffect();
 
-        // ======================== LOGIN LOGIC (including admin) ========================
+        // ======================== LOGIN LOGIC ========================
         const toggleEye = document.getElementById('toggleEye');
         const passInput = document.getElementById('loginPassword');
         toggleEye.addEventListener('click', () => {
@@ -692,7 +692,7 @@
         }
         loadStoredCredentials();
 
-        // Forgot password modal
+        // Forgot password modal (only for normal users)
         const forgotBtn = document.getElementById('forgotPassBtn');
         const modal = document.getElementById('forgotModal');
         const closeModal = document.getElementById('closeModalBtn');
@@ -725,14 +725,26 @@
             }, 1500);
         });
 
+        // Admin credentials list (hardcoded)
+        const adminList = [
+            { email: "gold.admin1@funconer.com", password: "gold123", branch: "gold", name: "Gold Admin 1" },
+            { email: "gold.admin2@funconer.com", password: "gold123", branch: "gold", name: "Gold Admin 2" },
+            { email: "aura.admin1@funconer.com", password: "aura123", branch: "aura", name: "Aura Admin 1" },
+            { email: "aura.admin2@funconer.com", password: "aura123", branch: "aura", name: "Aura Admin 2" },
+            { email: "soul.admin1@funconer.com", password: "soul123", branch: "soul", name: "Soul Admin 1" },
+            { email: "soul.admin2@funconer.com", password: "soul123", branch: "soul", name: "Soul Admin 2" },
+            { email: "pastel.admin1@funconer.com", password: "pastel123", branch: "pastel", name: "Pastel Admin 1" },
+            { email: "pastel.admin2@funconer.com", password: "pastel123", branch: "pastel", name: "Pastel Admin 2" },
+            { email: "velvet.admin1@funconer.com", password: "velvet123", branch: "velvet", name: "Velvet Admin 1" },
+            { email: "velvet.admin2@funconer.com", password: "velvet123", branch: "velvet", name: "Velvet Admin 2" },
+            { email: "ray.admin1@funconer.com", password: "ray123", branch: "ray", name: "Ray Admin 1" },
+            { email: "ray.admin2@funconer.com", password: "ray123", branch: "ray", name: "Ray Admin 2" }
+        ];
+
         // Login handler
         const loginForm = document.getElementById('loginForm');
         const loginBtn = document.getElementById('loginBtn');
         const loginError = document.getElementById('loginError');
-
-        // Admin credentials (hardcoded)
-        const ADMIN_EMAIL = "admin@funconer.com";
-        const ADMIN_PASS = "admin123";
 
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -751,11 +763,13 @@
             }
 
             // Check admin login first
-            if (identifier === ADMIN_EMAIL && password === ADMIN_PASS) {
-                // Admin login: set admin session and redirect to admin panel
+            const admin = adminList.find(a => a.email === identifier && a.password === password);
+            if (admin) {
+                // Admin login: set session and redirect to admin dashboard
                 sessionStorage.setItem('adminLoggedIn', 'true');
-                sessionStorage.setItem('adminBranch', 'gold'); // default branch, can be changed later
-                window.location.href = 'admin.html';
+                sessionStorage.setItem('adminBranch', admin.branch);
+                sessionStorage.setItem('adminName', admin.name);
+                window.location.href = 'admin-dashboard.html';
                 return;
             }
 
@@ -777,7 +791,7 @@
             loginBtn.disabled = true;
 
             setTimeout(() => {
-                // Save login session
+                // Save user login session
                 localStorage.setItem('funCornerLoggedIn', JSON.stringify({
                     fullName: user.fullName,
                     email: user.email,
@@ -792,7 +806,7 @@
                     localStorage.removeItem('funCornerLogin');
                 }
 
-                // Redirect to main page (index.html)
+                // Redirect to main page
                 window.location.href = 'index.html';
             }, 1200);
         });
