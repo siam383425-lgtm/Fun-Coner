@@ -1,19 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>🛡️ Admin Panel | Fun Corner</title>
+
+    <!-- PWA Meta -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Fun Corner Admin">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#ffd700">
+
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
             background: #050508;
             color: #fff;
             display: flex;
             min-height: 100vh;
             overflow-x: hidden;
+            font-family: 'Outfit', sans-serif;
         }
 
         :root {
@@ -21,10 +37,18 @@
             --theme-bg: rgba(255, 215, 0, 0.1);
         }
 
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: var(--theme-color); border-radius: 5px; }
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--theme-color);
+            border-radius: 5px;
+        }
 
+        /* Sidebar - optimized for touch */
         .sidebar {
             width: 260px;
             background: rgba(20, 20, 30, 0.85);
@@ -33,7 +57,7 @@
             display: flex;
             flex-direction: column;
             padding: 20px 0;
-            transition: left 0.3s;
+            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             position: fixed;
             top: 0;
             left: 0;
@@ -50,15 +74,26 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
             margin-bottom: 20px;
         }
-        .brand h2 { font-weight: 800; font-size: 1.5rem; color: var(--theme-color); }
-        .brand span { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+        .brand h2 {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--theme-color);
+        }
+        .brand span {
+            font-size: 0.7rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
         .nav-links {
             list-style: none;
             padding: 0 15px;
             flex: 1;
         }
-        .nav-links li { margin-bottom: 5px; }
+        .nav-links li {
+            margin-bottom: 5px;
+        }
         .nav-links a {
             display: flex;
             align-items: center;
@@ -68,14 +103,22 @@
             text-decoration: none;
             border-radius: 12px;
             font-weight: 500;
-            transition: 0.2s;
+            transition: background 0.2s, color 0.2s;
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
-        .nav-links a:hover, .nav-links a.active {
+        .nav-links a:active {
             background: var(--theme-bg);
             color: var(--theme-color);
         }
-        .nav-links i { width: 20px; text-align: center; }
+        .nav-links a.active {
+            background: var(--theme-bg);
+            color: var(--theme-color);
+        }
+        .nav-links i {
+            width: 20px;
+            text-align: center;
+        }
 
         .logout-btn {
             margin: 0 15px 20px;
@@ -87,11 +130,12 @@
             font-weight: 600;
             cursor: pointer;
             border: 1px solid rgba(225, 48, 108, 0.3);
-            transition: 0.2s;
+            transition: all 0.2s;
         }
-        .logout-btn:hover {
+        .logout-btn:active {
             background: #E1306C;
             color: #fff;
+            transform: scale(0.98);
         }
 
         .main-content {
@@ -101,6 +145,8 @@
             width: 100%;
             overflow-x: auto;
         }
+
+        /* Desktop view */
         @media (min-width: 768px) {
             .sidebar {
                 transform: translateX(0);
@@ -113,6 +159,7 @@
                 display: none;
             }
         }
+
         .menu-toggle {
             position: fixed;
             top: 15px;
@@ -126,6 +173,10 @@
             border-radius: 12px;
             padding: 8px 12px;
             cursor: pointer;
+            transition: 0.2s;
+        }
+        .menu-toggle:active {
+            transform: scale(0.95);
         }
 
         .header {
@@ -159,8 +210,14 @@
             color: #000;
             transition: 0.3s;
         }
-        .admin-details h4 { font-size: 1rem; margin-bottom: 2px; }
-        .admin-details p { font-size: 0.75rem; color: var(--theme-color); }
+        .admin-details h4 {
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+        .admin-details p {
+            font-size: 0.75rem;
+            color: var(--theme-color);
+        }
 
         .simulator {
             display: flex;
@@ -196,11 +253,11 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            transition: 0.2s;
+            transition: transform 0.2s, border-color 0.2s;
         }
-        .stat-card:hover {
+        .stat-card:active {
+            transform: scale(0.98);
             border-color: var(--theme-color);
-            transform: translateY(-3px);
         }
         .stat-icon {
             width: 50px;
@@ -213,8 +270,14 @@
             font-size: 1.5rem;
             color: var(--theme-color);
         }
-        .stat-info h3 { font-size: 1.6rem; font-weight: 800; }
-        .stat-info p { color: #888; font-size: 0.8rem; }
+        .stat-info h3 {
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+        .stat-info p {
+            color: #888;
+            font-size: 0.8rem;
+        }
 
         .table-container {
             background: rgba(20,20,30,0.6);
@@ -245,6 +308,7 @@
             color: white;
             padding: 8px;
             outline: none;
+            font-size: 0.9rem;
         }
         table {
             width: 100%;
@@ -307,10 +371,24 @@
             align-items: center;
             justify-content: center;
         }
-        .btn-approve { background: rgba(40,167,69,0.2); color: #28a745; }
-        .btn-approve:hover { background: #28a745; color: white; }
-        .btn-reject { background: rgba(220,53,69,0.2); color: #dc3545; }
-        .btn-reject:hover { background: #dc3545; color: white; }
+        .btn-approve {
+            background: rgba(40,167,69,0.2);
+            color: #28a745;
+        }
+        .btn-approve:active {
+            background: #28a745;
+            color: white;
+            transform: scale(0.95);
+        }
+        .btn-reject {
+            background: rgba(220,53,69,0.2);
+            color: #dc3545;
+        }
+        .btn-reject:active {
+            background: #dc3545;
+            color: white;
+            transform: scale(0.95);
+        }
 
         .tabs {
             display: flex;
@@ -335,10 +413,33 @@
             display: none;
         }
 
+        /* Motion reduction */
+        @media (prefers-reduced-motion: reduce) {
+            .sidebar, .stat-card, .btn-act, .logout-btn, .menu-toggle {
+                transition: none !important;
+                transform: none !important;
+            }
+        }
+
         @media (max-width: 767px) {
-            .stats-grid { grid-template-columns: 1fr; }
-            .table-container { padding: 15px; }
-            td, th { padding: 8px; font-size: 0.8rem; }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .table-container {
+                padding: 15px;
+            }
+            td, th {
+                padding: 8px;
+                font-size: 0.8rem;
+            }
+            .admin-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            .admin-details h4 {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -358,7 +459,6 @@
     </aside>
 
     <main class="main-content">
-        <div class="bg-glow"></div>
         <header class="header">
             <div class="admin-info">
                 <div class="admin-avatar" id="adminIcon">👑</div>
@@ -406,7 +506,7 @@
                     <div style="overflow-x: auto;">
                         <table id="membersTable">
                             <thead>
-                                <tr><th>Member</th><th>Member ID</th><th>WhatsApp</th><th>Joined</th></tr>
+                                <tr><th>Member</th><th>Member ID</th><th>WhatsApp</th><th>Joined</th> </tr>
                             </thead>
                             <tbody id="membersTableBody"></tbody>
                         </table>
@@ -427,7 +527,7 @@
                     <div style="overflow-x: auto;">
                         <table id="requestsTable">
                             <thead>
-                                <tr><th>User</th><th>Contact</th><th>WhatsApp</th><th>Applied</th><th>Action</th></tr>
+                                <tr><th>User</th><th>Contact</th><th>WhatsApp</th><th>Applied</th><th>Action</th> </tr>
                             </thead>
                             <tbody id="requestsTableBody"></tbody>
                         </table>
@@ -441,7 +541,6 @@
         // ---------- AUTHENTICATION CHECK ----------
         const isAdminLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true';
         if (!isAdminLoggedIn) {
-            // Not logged in as admin, redirect to login page
             window.location.href = 'login.html';
         }
 
@@ -502,9 +601,12 @@
             `;
             let recent = [...users].sort((a,b) => new Date(b.registeredAt) - new Date(a.registeredAt)).slice(0,5);
             document.getElementById('recentActivity').innerHTML = recent.length ? `
-                <table><thead><tr><th>Name</th><th>Status</th><th>Date</th></tr></thead><tbody>
-                ${recent.map(u => `<tr><td>${u.fullName}</td><td><span class="status-badge ${u.approved ? 'status-approved' : 'status-pending'}">${u.approved ? 'Approved' : 'Pending'}</span></td><td>${new Date(u.registeredAt).toLocaleDateString()}</td></tr>`).join('')}
-                </tbody></table>
+                <table>
+                    <thead><tr><th>Name</th><th>Status</th><th>Date</th></tr></thead>
+                    <tbody>
+                        ${recent.map(u => `<tr><td>${u.fullName}</td><td><span class="status-badge ${u.approved ? 'status-approved' : 'status-pending'}">${u.approved ? 'Approved' : 'Pending'}</span></td><td>${new Date(u.registeredAt).toLocaleDateString()}</td></tr>`).join('')}
+                    </tbody>
+                </table>
             ` : '<p>No activity yet.</p>';
         }
 
@@ -610,9 +712,25 @@
             window.location.href = 'login.html';
         });
 
-        document.getElementById('menuToggle').addEventListener('click', () => {
-            document.getElementById('sidebar').classList.toggle('open');
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
         });
+        // Close sidebar when clicking a link on mobile
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 768) sidebar.classList.remove('open');
+            });
+        });
+
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('SW registered', reg))
+                .catch(err => console.log('SW failed', err));
+        }
 
         // Initialize
         setTheme(currentBranch);
