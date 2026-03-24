@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>✨ Fun Corner | Elite Instagram Community</title>
     
-    <!-- Google Fonts & Font Awesome 6 -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
@@ -22,10 +21,11 @@
             font-family: 'Outfit', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
+            height: 100vh;
             position: relative;
         }
 
-        /* ========== ANIMATED BACKGROUND ========== */
+        /* Animated background (optimized for mobile) */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -39,139 +39,79 @@
         .orb {
             position: fixed;
             border-radius: 50%;
-            filter: blur(100px);
+            filter: blur(80px);
             z-index: -1;
-            animation: floatOrb 15s infinite alternate ease-in-out;
+            animation: floatOrb 12s infinite alternate ease-in-out;
         }
         .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: rgba(225,48,108,0.3);
-            top: -100px;
-            left: -100px;
+            width: 200px;
+            height: 200px;
+            background: rgba(225,48,108,0.4);
+            top: -60px;
+            left: -60px;
         }
         .orb-2 {
-            width: 500px;
-            height: 500px;
-            background: rgba(240,148,51,0.25);
-            bottom: -150px;
-            right: -100px;
+            width: 260px;
+            height: 260px;
+            background: rgba(240,148,51,0.3);
+            bottom: -80px;
+            right: -60px;
             animation-delay: -5s;
         }
         .orb-3 {
-            width: 300px;
-            height: 300px;
+            width: 150px;
+            height: 150px;
             background: rgba(0,242,254,0.2);
             top: 40%;
-            left: 20%;
-            animation-duration: 20s;
+            left: 15%;
+            animation-duration: 18s;
         }
         @keyframes floatOrb {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 70px) scale(1.2); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
         }
 
-        /* Gradient overlay that moves */
-        .gradient-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
+        /* Main container – fills screen */
+        .app-container {
+            display: flex;
+            flex-direction: column;
             height: 100%;
-            background: radial-gradient(circle at 30% 40%, rgba(225,48,108,0.08), rgba(0,0,0,0.95));
-            pointer-events: none;
-            z-index: -1;
-            animation: moveGradient 12s infinite alternate;
-        }
-        @keyframes moveGradient {
-            0% { background-position: 0% 0%; opacity: 0.6; }
-            100% { background-position: 100% 100%; opacity: 1; }
+            overflow-y: auto;
+            scroll-behavior: smooth;
         }
 
-        /* custom scroll */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #E1306C, #f09433);
-            border-radius: 12px;
+        /* Glass card – rounded top corners, no margins */
+        .glass-card {
+            background: rgba(18, 18, 28, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 28px 28px 0 0;
+            padding: 1.2rem 1rem;
+            flex: 1;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
         }
 
-        /* reveal animation */
+        /* Reveal animation (lighter) */
         .reveal {
             opacity: 0;
-            transform: translateY(35px);
-            transition: all 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+            transform: translateY(20px);
+            transition: all 0.6s ease;
         }
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* sections */
-        .section-padding {
-            padding: 90px 24px;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-title {
-            font-size: 2.6rem;
-            font-weight: 800;
-            text-align: center;
-            letter-spacing: -0.5px;
-            background: linear-gradient(130deg, #ffffff, #E1306C, #f9a8d4);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 55px;
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 70px;
-            height: 4px;
-            background: linear-gradient(90deg, #f09433, #E1306C);
-            border-radius: 4px;
-        }
-
-        /* buttons & glass */
-        .glass-card {
-            background: rgba(20, 20, 30, 0.45);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 32px;
-        }
-
-        /* hero */
+        /* Hero section */
         .hero-section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             text-align: center;
-            padding: 20px;
-            position: relative;
-            z-index: 2;
+            padding: 0 0 1rem 0;
         }
         .logo-container {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            margin-bottom: 30px;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 0.8rem;
             animation: floatGlow 3s infinite alternate;
         }
         .logo-container img {
@@ -179,220 +119,224 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            box-shadow: 0 20px 35px -10px rgba(225,48,108,0.5);
-            border: 2px solid rgba(255,255,255,0.25);
+            box-shadow: 0 8px 20px -5px rgba(225,48,108,0.4);
+            border: 2px solid rgba(255,255,255,0.2);
         }
         @keyframes floatGlow {
-            0% { transform: translateY(0px); box-shadow: 0 0 10px #E1306C; }
-            100% { transform: translateY(-10px); box-shadow: 0 0 35px #f09433; }
+            0% { transform: translateY(0px); box-shadow: 0 0 8px #E1306C; }
+            100% { transform: translateY(-6px); box-shadow: 0 0 20px #f09433; }
         }
         .welcome-text h1 {
-            font-size: 4rem;
+            font-size: 2rem;
             font-weight: 900;
             background: linear-gradient(135deg, #FFDEE9, #E1306C, #f5af19);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
+            letter-spacing: -0.5px;
         }
         .hero-desc {
             color: #bbb;
-            max-width: 600px;
-            margin: 20px auto;
-            font-weight: 400;
+            font-size: 0.85rem;
+            margin: 8px auto;
+            padding: 0 15px;
         }
         .button-group {
             display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
+            gap: 10px;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 12px;
+            flex-wrap: wrap;
         }
         .ig-main-btn, .enter-btn {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            padding: 14px 38px;
+            gap: 6px;
+            padding: 8px 20px;
             font-weight: 700;
-            border-radius: 50px;
+            font-size: 0.85rem;
+            border-radius: 40px;
             color: white;
-            transition: all 0.4s ease;
             text-decoration: none;
+            transition: 0.2s;
         }
         .ig-main-btn {
             background: linear-gradient(95deg, #f09433, #E1306C);
-            box-shadow: 0 8px 20px rgba(225,48,108,0.4);
+            box-shadow: 0 4px 12px rgba(225,48,108,0.3);
         }
         .enter-btn {
             background: transparent;
-            border: 2px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.3);
             backdrop-filter: blur(4px);
         }
-        .ig-main-btn:hover, .enter-btn:hover {
-            transform: scale(1.05);
-            letter-spacing: 0.5px;
-        }
-        .ig-main-btn:hover {
-            box-shadow: 0 15px 30px rgba(225,48,108,0.7);
-        }
-        .enter-btn:hover {
-            border-color: #E1306C;
-            background: rgba(225,48,108,0.1);
-            box-shadow: 0 0 20px rgba(225,48,108,0.3);
+        .ig-main-btn:active, .enter-btn:active {
+            transform: scale(0.96);
         }
 
-        /* zones grid (enhanced) */
+        /* Section titles */
+        .section-padding {
+            padding: 2rem 0;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(130deg, #ffffff, #E1306C, #f9a8d4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #f09433, #E1306C);
+            border-radius: 3px;
+        }
+
+        /* Zones */
         .group-list {
             display: flex;
             flex-direction: column;
-            gap: 24px;
-            max-width: 800px;
-            margin: 0 auto;
+            gap: 12px;
+            max-width: 100%;
         }
         .group-card {
             background: rgba(18, 18, 24, 0.7);
             backdrop-filter: blur(12px);
-            border-radius: 32px;
-            padding: 24px;
+            border-radius: 24px;
+            padding: 12px;
             border: 1px solid rgba(255,255,255,0.08);
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             cursor: pointer;
+            transition: 0.2s;
         }
-        .group-card:hover {
-            border-color: rgba(225,48,108,0.5);
-            transform: translateY(-5px);
-            background: rgba(28, 28, 38, 0.8);
-            box-shadow: 0 20px 32px -12px rgba(0,0,0,0.5);
+        .group-card:active {
+            transform: scale(0.98);
         }
         .group-main-content {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 15px;
+            gap: 10px;
         }
         .group-info {
             display: flex;
-            align-items: center;
-            gap: 20px;
-            flex: 2;
+            gap: 10px;
+            flex: 1;
         }
         .zone-icon {
-            font-size: 3rem;
-            filter: drop-shadow(0 0 6px currentColor);
-        }
-        .group-details {
-            flex: 1;
+            font-size: 1.8rem;
         }
         .group-name {
             font-weight: 800;
-            font-size: 1.65rem;
-            letter-spacing: -0.3px;
+            font-size: 1.1rem;
         }
         .member-count {
-            font-size: 0.85rem;
+            font-size: 0.7rem;
             color: #b9b9c3;
-            margin: 5px 0 8px;
+            margin: 4px 0;
         }
         .progress-bar-container {
             background: rgba(255,255,255,0.1);
             border-radius: 20px;
-            height: 8px;
+            height: 5px;
             overflow: hidden;
         }
         .progress-fill {
             height: 100%;
             width: 0%;
             border-radius: 20px;
-            transition: width 1.2s ease-out;
+            transition: width 0.8s ease;
         }
         .zone-desc {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: #aaa;
-            margin-top: 6px;
+            margin-top: 5px;
             display: flex;
-            gap: 12px;
+            gap: 6px;
             flex-wrap: wrap;
         }
         .zone-badge {
             background: rgba(255,255,255,0.08);
             border-radius: 50px;
-            padding: 3px 10px;
-            font-size: 0.7rem;
-            font-weight: 500;
+            padding: 2px 8px;
+            font-size: 0.6rem;
         }
         .click-hint {
-            font-size: 1.2rem;
+            font-size: 0.9rem;
             color: #E1306C;
-            transition: 0.3s;
         }
         .admin-expand-area {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.55s ease-in-out, opacity 0.4s;
+            transition: max-height 0.4s ease;
             opacity: 0;
         }
         .group-card.expanded .admin-expand-area {
-            max-height: 320px;
+            max-height: 280px;
             opacity: 1;
-            margin-top: 22px;
+            margin-top: 12px;
             border-top: 1px dashed rgba(255,255,255,0.2);
-            padding-top: 22px;
+            padding-top: 12px;
         }
         .group-card.expanded .click-hint i {
             transform: rotate(180deg);
         }
         .admin-item {
             background: rgba(0,0,0,0.35);
-            border-radius: 20px;
-            padding: 12px 18px;
+            border-radius: 16px;
+            padding: 8px 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            transition: 0.2s;
+            margin-bottom: 8px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
         .admin-role {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: #f0a3c2;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         .admin-title {
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.85rem;
         }
         .admin-ig-btn {
             background: rgba(225,48,108,0.2);
-            padding: 7px 16px;
+            padding: 4px 12px;
             border-radius: 30px;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-weight: 600;
             color: #ff90b5;
-            transition: 0.2s;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-        }
-        .admin-ig-btn:hover {
-            background: #E1306C;
-            color: white;
+            gap: 5px;
         }
 
-        /* owner card premium */
+        /* Owner card */
         .owner-card {
             background: linear-gradient(145deg, #13131f, #07070f);
-            border-radius: 48px;
-            padding: 40px 20px;
-            max-width: 480px;
+            border-radius: 28px;
+            padding: 20px;
+            max-width: 320px;
             margin: 0 auto;
             text-align: center;
             border: 1px solid rgba(225,48,108,0.3);
         }
         .owner-img-wrapper {
-            width: 130px;
-            height: 130px;
-            margin: 0 auto 20px;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 12px;
             background: linear-gradient(45deg, #E1306C, #f09433);
             border-radius: 50%;
             display: flex;
@@ -400,50 +344,47 @@
             justify-content: center;
         }
         .owner-img {
-            width: 120px;
-            height: 120px;
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid white;
+            border: 2px solid white;
+        }
+        .owner-card h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
         }
         .owner-stats {
             display: flex;
             justify-content: center;
-            gap: 28px;
-            margin: 20px 0;
-        }
-        .stat-item {
-            text-align: center;
+            gap: 20px;
+            margin: 12px 0;
         }
         .stat-number {
             font-weight: 800;
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             background: linear-gradient(135deg, #fff, #E1306C);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .stat-item p {
+            font-size: 0.6rem;
+        }
 
-        /* memory vault grid - dynamic reel embeds */
+        /* Reels grid */
         .memory-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            max-width: 100%;
         }
         .reel-card {
             background: rgba(15,15,25,0.6);
             backdrop-filter: blur(12px);
-            border-radius: 24px;
+            border-radius: 20px;
             overflow: hidden;
-            transition: all 0.3s;
             border: 1px solid rgba(255,255,255,0.08);
-        }
-        .reel-card:hover {
-            transform: translateY(-5px);
-            border-color: #E1306C;
-            box-shadow: 0 15px 30px rgba(225,48,108,0.2);
         }
         .reel-embed {
             position: relative;
@@ -457,187 +398,182 @@
             border: none;
         }
         .reel-info {
-            padding: 12px;
+            padding: 8px;
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: #aaa;
         }
         .add-reel-form {
-            margin-top: 30px;
+            margin-top: 20px;
             text-align: center;
             background: rgba(20,20,30,0.6);
-            padding: 20px;
-            border-radius: 32px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            padding: 12px;
+            border-radius: 28px;
         }
         .add-reel-form input {
-            width: 70%;
-            padding: 12px;
+            width: 100%;
+            padding: 10px;
             border-radius: 30px;
             background: rgba(0,0,0,0.5);
             border: 1px solid #E1306C;
             color: white;
-            margin-right: 10px;
+            margin-bottom: 8px;
         }
         .add-reel-form button {
-            padding: 12px 24px;
+            padding: 10px 20px;
             background: linear-gradient(95deg, #E1306C, #f09433);
             border: none;
             border-radius: 30px;
             color: white;
             font-weight: bold;
-            cursor: pointer;
-        }
-        @media (max-width: 768px) {
-            .memory-grid { grid-template-columns: 1fr; }
-            .add-reel-form input { width: 100%; margin-bottom: 10px; }
+            width: 100%;
         }
 
-        /* leaderboard premium */
+        /* Leaderboard */
         .leaderboard-container {
             background: rgba(15, 15, 25, 0.6);
             backdrop-filter: blur(12px);
-            border-radius: 40px;
-            padding: 25px;
-            max-width: 800px;
-            margin: 0 auto;
+            border-radius: 24px;
+            padding: 12px;
         }
         .lb-item {
             display: flex;
             align-items: center;
-            gap: 18px;
-            padding: 14px 18px;
+            gap: 12px;
+            padding: 8px 10px;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: 0.2s;
-        }
-        .lb-item:hover {
-            background: rgba(255,255,255,0.05);
-            border-radius: 60px;
         }
         .rank-icon {
-            font-size: 1.9rem;
-            width: 50px;
+            font-size: 1.3rem;
+            width: 35px;
             text-align: center;
         }
         .member-avatar {
-            width: 45px;
-            height: 45px;
+            width: 32px;
+            height: 32px;
             background: linear-gradient(145deg, #E1306C, #f09433);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 0.8rem;
         }
+        .lb-item .score {
+            font-size: 0.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg,#fff,#E1306C);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .request-btn {
             background: linear-gradient(95deg, #E1306C, #f09819);
-            padding: 16px 44px;
+            padding: 10px 28px;
             font-weight: 800;
-            border-radius: 60px;
+            border-radius: 50px;
             color: white;
-            font-size: 1.2rem;
-            transition: all 0.3s;
+            font-size: 0.9rem;
             display: inline-block;
-            box-shadow: 0 12px 25px -8px #E1306C;
+            box-shadow: 0 6px 14px -4px #E1306C;
             text-decoration: none;
         }
-        .request-btn:hover {
-            transform: scale(1.02);
-            letter-spacing: 1.2px;
-        }
+
         footer {
             text-align: center;
-            padding: 35px 20px;
+            padding: 20px 16px;
             border-top: 1px solid rgba(255,255,255,0.05);
             color: #888;
-            position: relative;
-            z-index: 2;
+            font-size: 0.65rem;
         }
-        @media (max-width: 580px) {
-            .section-title { font-size: 2rem; }
-            .group-main-content { flex-direction: column; align-items: flex-start; }
-            .click-hint { align-self: flex-end; }
-            .admin-item { flex-direction: column; text-align: center; gap: 10px; }
-            .hero-section h1 { font-size: 2.6rem; }
-            .button-group { flex-direction: column; gap: 12px; width: 100%; }
-            .ig-main-btn, .enter-btn { justify-content: center; }
+        footer a {
+            color: #E1306C;
+            text-decoration: none;
+        }
+
+        @media (min-width: 640px) {
+            .memory-grid {
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            }
+            .group-list {
+                max-width: 600px;
+                margin: 0 auto;
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- Animated Background Elements -->
     <canvas id="bg-canvas"></canvas>
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
-    <div class="gradient-overlay"></div>
 
-    <section class="hero-section">
-        <div class="logo-container reveal">
-            <img src="WhatsApp Image 2026-03-20 at 7.56.57 PM.jpeg" alt="Fun Corner Crest">
-        </div>
-        <div class="welcome-text reveal">
-            <h1>FUN CORNER</h1>
-            <p class="hero-desc">Where aesthetics meet elite energy — the most exclusive Instagram universe. 6 zones, 6000+ legends, infinite vibes.</p>
-        </div>
-        <div class="button-group">
-            <a href="https://www.instagram.com/n0th1n5m?igsh=b2xuMm03MXY3bHAy" class="ig-main-btn reveal" target="_blank"><i class="fab fa-instagram"></i> Explore Official Hub</a>
-            <a href="login.html" class="enter-btn reveal"><i class="fas fa-sign-in-alt"></i> Enter Community</a>
-        </div>
-    </section>
+    <div class="app-container">
+        <div class="glass-card">
+            <section class="hero-section">
+                <div class="logo-container reveal">
+                    <img src="WhatsApp Image 2026-03-20 at 7.56.57 PM.jpeg" alt="Fun Corner Crest">
+                </div>
+                <div class="welcome-text reveal">
+                    <h1>FUN CORNER</h1>
+                    <p class="hero-desc">Where aesthetics meet elite energy — 6 zones, 6000+ legends, infinite vibes.</p>
+                </div>
+                <div class="button-group reveal">
+                    <a href="https://www.instagram.com/n0th1n5m?igsh=b2xuMm03MXY3bHAy" class="ig-main-btn" target="_blank"><i class="fab fa-instagram"></i> Explore Hub</a>
+                    <a href="login.html" class="enter-btn"><i class="fas fa-sign-in-alt"></i> Enter</a>
+                </div>
+            </section>
 
-    <section class="section-padding">
-        <h2 class="section-title reveal"><i class="fas fa-crown" style="margin-right: 12px;"></i> Elite Zones</h2>
-        <div class="group-list" id="zoneContainer"></div>
-    </section>
+            <section class="section-padding">
+                <h2 class="section-title reveal"><i class="fas fa-crown" style="margin-right: 8px;"></i> Elite Zones</h2>
+                <div class="group-list" id="zoneContainer"></div>
+            </section>
 
-    <section class="section-padding">
-        <h2 class="section-title reveal"><i class="fas fa-user-astronaut"></i> The Founder</h2>
-        <div class="owner-card reveal">
-            <div class="owner-img-wrapper">
-                <img src="owner.jpg" alt="Owner" class="owner-img" onerror="this.src='https://ui-avatars.com/api/?background=E1306C&color=fff&bold=true&size=120&name=Mehu'">
-            </div>
-            <h3 style="font-size: 1.9rem; font-weight: 800;">Mehu</h3>
-            <p style="color: #E1306C; font-weight: 500;">✦ Visionary Creator ✦</p>
-            <div class="owner-stats">
-                <div class="stat-item"><div class="stat-number">10K+</div><div style="font-size: 0.7rem;">Global Reach</div></div>
-                <div class="stat-item"><div class="stat-number">6</div><div>Zones</div></div>
-                <div class="stat-item"><div class="stat-number">24/7</div><div>Vibe</div></div>
-            </div>
-            <a href="https://www.instagram.com/n0th1n5m?igsh=b2xuMm03MXY3bHAy" class="admin-ig-btn" style="background:#E1306C; color:white; padding: 10px 28px;"><i class="fab fa-instagram"></i> @n0th1n5m</a>
+            <section class="section-padding">
+                <h2 class="section-title reveal"><i class="fas fa-user-astronaut"></i> The Founder</h2>
+                <div class="owner-card reveal">
+                    <div class="owner-img-wrapper">
+                        <img src="owner.jpg" alt="Owner" class="owner-img" onerror="this.src='https://ui-avatars.com/api/?background=E1306C&color=fff&bold=true&size=120&name=Mehu'">
+                    </div>
+                    <h3>Mehu</h3>
+                    <p style="color: #E1306C; font-weight: 500; font-size: 0.8rem;">✦ Visionary Creator ✦</p>
+                    <div class="owner-stats">
+                        <div class="stat-item"><div class="stat-number">10K+</div><p>Global Reach</p></div>
+                        <div class="stat-item"><div class="stat-number">6</div><p>Zones</p></div>
+                        <div class="stat-item"><div class="stat-number">24/7</div><p>Vibe</p></div>
+                    </div>
+                    <a href="https://www.instagram.com/n0th1n5m?igsh=b2xuMm03MXY3bHAy" class="admin-ig-btn" style="background:#E1306C; color:white; padding: 6px 18px;"><i class="fab fa-instagram"></i> @n0th1n5m</a>
+                </div>
+            </section>
+
+            <section class="section-padding">
+                <h2 class="section-title reveal"><i class="fas fa-film"></i> Memory Vault</h2>
+                <div class="memory-grid" id="reelsContainer"></div>
+                <div id="addReelForm" class="add-reel-form reveal" style="display: none;">
+                    <input type="text" id="reelUrl" placeholder="Instagram Reel URL">
+                    <button id="addReelBtn">Add Reel</button>
+                </div>
+            </section>
+
+            <section class="section-padding">
+                <h2 class="section-title reveal"><i class="fas fa-trophy"></i> Hall of Fame</h2>
+                <div class="leaderboard-container reveal" id="leaderboard"></div>
+                <div class="request-wrapper reveal" style="text-align: center; margin-top: 30px;">
+                    <a href="register.html" class="request-btn"><i class="fas fa-paper-plane"></i> Request to Join</a>
+                </div>
+            </section>
+
+            <footer>
+                <p>✦ Crafted with <i class="fas fa-heart" style="color:#E1306C;"></i> by <strong style="color:#E1306C;">Saif</strong> • Fun Corner Universe © 2026</p>
+                <p style="margin-top: 8px;"><i class="fab fa-instagram"></i> <a href="https://www.instagram.com/fun_corner_hq">@fun_corner_hq</a>  |  <i class="fas fa-gem"></i> Elite Community</p>
+                <p style="margin-top: 8px;"><i class="fas fa-shield-alt"></i> <a href="admin-login.html">Admin Access</a></p>
+            </footer>
         </div>
-    </section>
-
-    <section class="section-padding">
-        <h2 class="section-title reveal"><i class="fas fa-film"></i> Memory Vault • Reels</h2>
-        <div class="memory-grid" id="reelsContainer"></div>
-        <!-- Add Reel Form (visible only to admin) -->
-        <div id="addReelForm" class="add-reel-form reveal" style="display: none;">
-            <h3>✨ Add New Reel</h3>
-            <input type="text" id="reelUrl" placeholder="Instagram Reel URL (e.g., https://www.instagram.com/reel/...)" />
-            <button id="addReelBtn">Add Reel</button>
-        </div>
-    </section>
-
-    <section class="section-padding">
-        <h2 class="section-title reveal"><i class="fas fa-trophy"></i> Hall of Fame</h2>
-        <div class="leaderboard-container reveal" id="leaderboard"></div>
-        <div class="request-wrapper reveal" style="text-align: center; margin-top: 60px;">
-            <a href="register.html" class="request-btn"><i class="fas fa-paper-plane"></i> Request to Join</a>
-        </div>
-    </section>
-
-    <footer>
-        <p>✦ Crafted with <i class="fas fa-heart" style="color:#E1306C;"></i> by <strong style="color:#E1306C;">Saif</strong> • Fun Corner Universe © 2026</p>
-        <p style="margin-top: 12px;"><i class="fab fa-instagram"></i> <a href="https://www.instagram.com/fun_corner_hq" style="color:#f0a3c2;">@fun_corner_hq</a>  |  <i class="fas fa-gem"></i> Elite Community</p>
-        <p style="margin-top: 12px;"><i class="fas fa-shield-alt"></i> <a href="admin-login.html" style="color:#E1306C;">Admin Access</a></p>
-    </footer>
+    </div>
 
     <script>
-        // ======================= ANIMATED BACKGROUND (PARTICLES) =======================
+        // ========== ANIMATED BACKGROUND ==========
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -653,11 +589,10 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
+                this.size = Math.random() * 1.5 + 0.5;
                 this.speedX = (Math.random() - 0.5) * 0.3;
                 this.speedY = (Math.random() - 0.5) * 0.2;
-                this.opacity = Math.random() * 0.4 + 0.1;
-                this.color = `rgba(255, 255, 255, ${this.opacity})`;
+                this.opacity = Math.random() * 0.3 + 0.1;
             }
             update() {
                 this.x += this.speedX;
@@ -677,76 +612,26 @@
 
         function initParticles() {
             particles = [];
-            const count = Math.min(100, Math.floor(window.innerWidth * 0.15));
-            for (let i = 0; i < count; i++) {
-                particles.push(new Particle());
-            }
+            const count = Math.min(50, Math.floor(window.innerWidth * 0.1));
+            for (let i = 0; i < count; i++) particles.push(new Particle());
         }
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let p of particles) {
-                p.update();
-                p.draw();
-            }
+            for (let p of particles) { p.update(); p.draw(); }
             requestAnimationFrame(animateParticles);
         }
         initParticles();
         animateParticles();
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            initParticles();
-        });
+        window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
 
-        // ======================= ZONE DATA WITH REAL ADMIN DETAILS =======================
+        // ========== ZONE DATA ==========
         const zonesData = [
-            { 
-                name: "Gold Zone", icon: "fa-crown", color: "#ffd966", 
-                desc: "OG royalty • 24k leaders", badge: "Elite Lounge", 
-                current: 1540, max: 1800, progressPercent: 85.5, 
-                headAdmin: "Ashraf", headHandle: "https://www.instagram.com/classy._nirob?igsh=MXdrcmdncmZ2MWxmOA==", 
-                coAdmin: "Tasu", coHandle: "https://www.instagram.com/__tasuu._?igsh=azVzMXQ0enIxY3Jk", 
-                bgClass: "gold" 
-            },
-            { 
-                name: "Aura Zone", icon: "fa-star", color: "#c084fc", 
-                desc: "Magnetic vibes • mystic energy", badge: "✨ Aura Masters", 
-                current: 890, max: 1500, progressPercent: 59.3, 
-                headAdmin: "Apela", headHandle: "https://www.instagram.com/apelapato._.6t9?igsh=MW1tdnNhbmt3M21jNA==", 
-                coAdmin: "Oishi", coHandle: "https://www.instagram.com/oiishee._fca_.admin?igsh=MXNsMmdhNzJsbnl0YQ==", 
-                bgClass: "aura" 
-            },
-            { 
-                name: "Soul Zone", icon: "fa-feather-alt", color: "#5bc0ff", 
-                desc: "Deep talks • soulful connection", badge: "🎧 Soul Seeker", 
-                current: 1200, max: 1600, progressPercent: 75, 
-                headAdmin: "Suvo", headHandle: "https://www.instagram.com/suvo_fcs_admin?igsh=MWpjeXBiaWs4bzhzbA==", 
-                coAdmin: "Nusrat", coHandle: "https://www.instagram.com/__nusrat_37?igsh=ZXVqbnZuZGZhdDgw", 
-                bgClass: "soul" 
-            },
-            { 
-                name: "Pastel Zone", icon: "fa-palette", color: "#f9a8d4", 
-                desc: "Soft aesthetics • dreamy art", badge: "🎨 Pastel Pals", 
-                current: 650, max: 1300, progressPercent: 50, 
-                headAdmin: "Ruiat", headHandle: "https://www.instagram.com/ruiat._?igsh=Zml0NmxlOXR0ajVj", 
-                coAdmin: "Afroo", coHandle: "https://www.instagram.com/af_rooo_?igsh=Z2huem10a3J4ZTBj", 
-                bgClass: "pastel" 
-            },
-            { 
-                name: "Velvet Zone", icon: "fa-glass-cheers", color: "#ff6b6b", 
-                desc: "Luxury nights • velvet mood", badge: "🍷 Velvet Room", 
-                current: 980, max: 1500, progressPercent: 65.3, 
-                headAdmin: "Aspika", headHandle: "https://www.instagram.com/aspika_00?igsh=YWd5eXNjMmRvY2Rh", 
-                coAdmin: "Mimia", coHandle: "https://www.instagram.com/miimiiaa_._?igsh=MXh6YTVqZGxueWUwaA==", 
-                bgClass: "velvet" 
-            },
-            { 
-                name: "Ray Zone", icon: "fa-bolt", color: "#ffb347", 
-                desc: "Hustle mode • energy boost", badge: "⚡ Ray Riders", 
-                current: 1100, max: 1550, progressPercent: 71, 
-                headAdmin: "Tanisha", headHandle: "https://www.instagram.com/tanisa_kittymi4ww_?igsh=bHVmeTBuNXBybmt6", 
-                coAdmin: "Tuhu", coHandle: "https://www.instagram.com/mr._tuhu?igsh=bm81bzJkZm95dWdz", 
-                bgClass: "ray" 
-            }
+            { name: "Gold Zone", icon: "fa-crown", color: "#ffd966", desc: "OG royalty • 24k leaders", badge: "Elite Lounge", current: 1540, max: 1800, progressPercent: 85.5, headAdmin: "Ashraf", headHandle: "https://www.instagram.com/classy._nirob?igsh=MXdrcmdncmZ2MWxmOA==", coAdmin: "Tasu", coHandle: "https://www.instagram.com/__tasuu._?igsh=azVzMXQ0enIxY3Jk", bgClass: "gold" },
+            { name: "Aura Zone", icon: "fa-star", color: "#c084fc", desc: "Magnetic vibes • mystic energy", badge: "✨ Aura Masters", current: 890, max: 1500, progressPercent: 59.3, headAdmin: "Apela", headHandle: "https://www.instagram.com/apelapato._.6t9?igsh=MW1tdnNhbmt3M21jNA==", coAdmin: "Oishi", coHandle: "https://www.instagram.com/oiishee._fca_.admin?igsh=MXNsMmdhNzJsbnl0YQ==", bgClass: "aura" },
+            { name: "Soul Zone", icon: "fa-feather-alt", color: "#5bc0ff", desc: "Deep talks • soulful connection", badge: "🎧 Soul Seeker", current: 1200, max: 1600, progressPercent: 75, headAdmin: "Suvo", headHandle: "https://www.instagram.com/suvo_fcs_admin?igsh=MWpjeXBiaWs4bzhzbA==", coAdmin: "Nusrat", coHandle: "https://www.instagram.com/__nusrat_37?igsh=ZXVqbnZuZGZhdDgw", bgClass: "soul" },
+            { name: "Pastel Zone", icon: "fa-palette", color: "#f9a8d4", desc: "Soft aesthetics • dreamy art", badge: "🎨 Pastel Pals", current: 650, max: 1300, progressPercent: 50, headAdmin: "Ruiat", headHandle: "https://www.instagram.com/ruiat._?igsh=Zml0NmxlOXR0ajVj", coAdmin: "Afroo", coHandle: "https://www.instagram.com/af_rooo_?igsh=Z2huem10a3J4ZTBj", bgClass: "pastel" },
+            { name: "Velvet Zone", icon: "fa-glass-cheers", color: "#ff6b6b", desc: "Luxury nights • velvet mood", badge: "🍷 Velvet Room", current: 980, max: 1500, progressPercent: 65.3, headAdmin: "Aspika", headHandle: "https://www.instagram.com/aspika_00?igsh=YWd5eXNjMmRvY2Rh", coAdmin: "Mimia", coHandle: "https://www.instagram.com/miimiiaa_._?igsh=MXh6YTVqZGxueWUwaA==", bgClass: "velvet" },
+            { name: "Ray Zone", icon: "fa-bolt", color: "#ffb347", desc: "Hustle mode • energy boost", badge: "⚡ Ray Riders", current: 1100, max: 1550, progressPercent: 71, headAdmin: "Tanisha", headHandle: "https://www.instagram.com/tanisa_kittymi4ww_?igsh=bHVmeTBuNXBybmt6", coAdmin: "Tuhu", coHandle: "https://www.instagram.com/mr._tuhu?igsh=bm81bzJkZm95dWdz", bgClass: "ray" }
         ];
 
         const gradientMap = {
@@ -787,7 +672,7 @@
                             <div><span class="admin-role">✨ CO-ADMIN</span><div class="admin-title">${zone.coAdmin}</div></div>
                             <a href="${zone.coHandle}" class="admin-ig-btn" target="_blank" onclick="event.stopPropagation()"><i class="fab fa-instagram"></i> @${zone.coAdmin.toLowerCase()}</a>
                         </div>
-                        <div style="font-size: 0.7rem; margin-top: 10px; color:#aaa;"><i class="fas fa-chart-line"></i> Weekly active: ${Math.floor(zone.current * 0.78)}+ engaged</div>
+                        <div style="font-size: 0.6rem; margin-top: 8px; color:#aaa;"><i class="fas fa-chart-line"></i> Weekly active: ${Math.floor(zone.current * 0.78)}+ engaged</div>
                     </div>
                 `;
                 container.appendChild(card);
@@ -798,59 +683,49 @@
         function initCountersAndProgress() {
             const counters = document.querySelectorAll('.count-num');
             const progressBars = document.querySelectorAll('.progress-fill');
-            const observerOptions = { threshold: 0.4 };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const el = entry.target;
-                        if (el.classList && el.classList.contains('count-num')) {
-                            animateNumber(el);
-                        }
-                        if (el.classList && el.classList.contains('progress-fill') && !el.style.width) {
-                            const targetPercent = el.getAttribute('data-progress');
-                            el.style.width = `${targetPercent}%`;
-                            const parentCard = el.closest('.group-card');
-                            if (parentCard) {
-                                const cls = Array.from(parentCard.classList).find(c => gradientMap[c]);
+                        if (el.classList.contains('count-num')) animateNumber(el);
+                        else if (el.classList.contains('progress-fill') && !el.style.width) {
+                            const target = el.getAttribute('data-progress');
+                            el.style.width = `${target}%`;
+                            const parent = el.closest('.group-card');
+                            if (parent) {
+                                const cls = Array.from(parent.classList).find(c => gradientMap[c]);
                                 if (cls) el.style.background = gradientMap[cls];
-                                else el.style.background = "linear-gradient(90deg, #E1306C, #f09433)";
                             }
                         }
                         observer.unobserve(el);
                     }
                 });
-            }, observerOptions);
+            }, { threshold: 0.3 });
             counters.forEach(c => observer.observe(c));
             progressBars.forEach(p => observer.observe(p));
         }
 
-        function animateNumber(element) {
-            const target = parseInt(element.getAttribute('data-current'));
-            let currentVal = 0;
-            const increment = Math.ceil(target / 50);
+        function animateNumber(el) {
+            const target = parseInt(el.getAttribute('data-current'));
+            let current = 0;
+            const step = Math.ceil(target / 40);
             const update = () => {
-                currentVal += increment;
-                if (currentVal >= target) {
-                    element.innerText = target;
-                    return;
-                }
-                element.innerText = currentVal;
+                current += step;
+                if (current >= target) { el.innerText = target; return; }
+                el.innerText = current;
                 requestAnimationFrame(update);
             };
             update();
         }
 
-        function toggleAdmin(card, idx) {
+        function toggleAdmin(card) {
             document.querySelectorAll('.group-card').forEach(c => {
-                if (c !== card && c.classList.contains('expanded')) {
-                    c.classList.remove('expanded');
-                }
+                if (c !== card && c.classList.contains('expanded')) c.classList.remove('expanded');
             });
             card.classList.toggle('expanded');
         }
 
-        // ======================= REELS MANAGEMENT =======================
-        // Load reels from localStorage
+        // ========== REELS ==========
         function loadReels() {
             const stored = localStorage.getItem('funCornerReels');
             return stored ? JSON.parse(stored) : [
@@ -859,70 +734,43 @@
                 { url: "https://www.instagram.com/reel/C4jL8CYoVvZ/", title: "Community Highlights" }
             ];
         }
-
-        function saveReels(reels) {
-            localStorage.setItem('funCornerReels', JSON.stringify(reels));
-        }
-
-        // Convert Instagram URL to embed URL
+        function saveReels(reels) { localStorage.setItem('funCornerReels', JSON.stringify(reels)); }
         function getEmbedUrl(url) {
-            // Extract reel ID
             const match = url.match(/\/reel\/([A-Za-z0-9_-]+)/);
-            if (match) {
-                return `https://www.instagram.com/reel/${match[1]}/embed`;
-            }
-            return null;
+            return match ? `https://www.instagram.com/reel/${match[1]}/embed` : null;
         }
-
         function renderReels() {
             const container = document.getElementById('reelsContainer');
             const reels = loadReels();
-            if (!reels.length) {
-                container.innerHTML = '<div style="text-align:center; padding:40px;">No reels added yet. Admin can add reels using the form below.</div>';
-                return;
-            }
+            if (!reels.length) { container.innerHTML = '<div style="text-align:center; padding:20px;">No reels added yet.</div>'; return; }
             container.innerHTML = reels.map(reel => {
-                const embedUrl = getEmbedUrl(reel.url);
-                if (!embedUrl) return '';
+                const embed = getEmbedUrl(reel.url);
+                if (!embed) return '';
                 return `
                     <div class="reel-card reveal">
-                        <div class="reel-embed">
-                            <iframe src="${embedUrl}" frameborder="0" allowfullscreen scrolling="no" allow="encrypted-media"></iframe>
-                        </div>
-                        <div class="reel-info">
-                            <i class="fab fa-instagram"></i> ${reel.title || 'Fun Corner Reel'}
-                        </div>
+                        <div class="reel-embed"><iframe src="${embed}" frameborder="0" allowfullscreen scrolling="no" allow="encrypted-media"></iframe></div>
+                        <div class="reel-info"><i class="fab fa-instagram"></i> ${reel.title || 'Fun Corner Reel'}</div>
                     </div>
                 `;
             }).join('');
         }
-
-        // Add new reel
         document.getElementById('addReelBtn')?.addEventListener('click', () => {
             const url = document.getElementById('reelUrl').value.trim();
-            if (!url) return;
-            if (!url.includes('instagram.com/reel/')) {
-                alert('Please enter a valid Instagram reel URL');
-                return;
-            }
+            if (!url || !url.includes('instagram.com/reel/')) { alert('Enter a valid Instagram reel URL'); return; }
             const reels = loadReels();
-            reels.unshift({ url: url, title: 'New Reel' });
+            reels.unshift({ url, title: 'New Reel' });
             saveReels(reels);
             renderReels();
             document.getElementById('reelUrl').value = '';
-            alert('Reel added successfully!');
+            alert('Reel added');
         });
-
-        // Check if user is admin (from sessionStorage) to show add reel form
         function checkAdminAndShowForm() {
             const isAdmin = sessionStorage.getItem('adminLoggedIn') === 'true';
             const form = document.getElementById('addReelForm');
-            if (form) {
-                form.style.display = isAdmin ? 'block' : 'none';
-            }
+            if (form) form.style.display = isAdmin ? 'block' : 'none';
         }
 
-        // ======================= LEADERBOARD =======================
+        // ========== LEADERBOARD ==========
         const leaderboardData = [
             { name: "AlphaSpade", zone: "Gold Zone", score: 12500, avatar: "A" },
             { name: "NovaAura", zone: "Aura Zone", score: 11200, avatar: "N" },
@@ -931,71 +779,55 @@
             { name: "RayFlash", zone: "Ray Zone", score: 8740, avatar: "R" },
             { name: "PastelWaves", zone: "Pastel Zone", score: 7650, avatar: "P" }
         ];
-        
         function buildLeaderboard() {
-            const lbContainer = document.getElementById("leaderboard");
-            if(!lbContainer) return;
-            lbContainer.innerHTML = "";
-            leaderboardData.forEach((member, idx) => {
-                const rankIcon = idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : "📀";
+            const lb = document.getElementById("leaderboard");
+            if (!lb) return;
+            lb.innerHTML = "";
+            leaderboardData.forEach((m, i) => {
+                const rank = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : "📀";
                 const item = document.createElement("div");
                 item.className = "lb-item";
                 item.innerHTML = `
-                    <div class="rank-icon" style="font-size:1.8rem;">${rankIcon}</div>
-                    <div class="member-avatar" style="background: linear-gradient(135deg, #E1306C, #f09433); color:white;">${member.avatar}</div>
-                    <div style="flex:1;">
-                        <div style="font-weight:700;">${member.name}</div>
-                        <div style="font-size:0.7rem; color:#aaa;"><i class="fas fa-globe"></i> ${member.zone}</div>
-                    </div>
-                    <div class="score" style="font-weight:800; background:linear-gradient(135deg,#fff,#E1306C); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent;">${member.score.toLocaleString()} pts</div>
+                    <div class="rank-icon">${rank}</div>
+                    <div class="member-avatar">${m.avatar}</div>
+                    <div style="flex:1;"><div style="font-weight:600; font-size:0.85rem;">${m.name}</div><div style="font-size:0.6rem; color:#aaa;">${m.zone}</div></div>
+                    <div class="score">${m.score.toLocaleString()} pts</div>
                 `;
-                lbContainer.appendChild(item);
+                lb.appendChild(item);
             });
         }
 
-        // ======================= SCROLL REVEAL =======================
+        // ========== SCROLL REVEAL ==========
         function revealOnScroll() {
             const reveals = document.querySelectorAll(".reveal");
-            for (let i = 0; i < reveals.length; i++) {
-                const winHeight = window.innerHeight;
-                const rect = reveals[i].getBoundingClientRect();
-                if (rect.top < winHeight - 100) {
-                    reveals[i].classList.add("active");
-                }
-            }
+            const winHeight = window.innerHeight;
+            reveals.forEach(r => {
+                const rect = r.getBoundingClientRect();
+                if (rect.top < winHeight - 80) r.classList.add("active");
+            });
         }
         window.addEventListener("scroll", revealOnScroll);
-        
-        // Memory vault click alert (optional)
-        document.addEventListener("click", (e) => {
-            if(e.target.closest('.video-box')) {
-                alert("✨ Exclusive reel preview — only for members! ✨\nJoin Fun Corner to unlock full vault.");
-            }
-        });
-
-        // INITIALIZE EVERYTHING
-        buildZones();
-        buildLeaderboard();
-        renderReels();
-        checkAdminAndShowForm();
-        revealOnScroll();
-
-        // Progress bars fix
-        setTimeout(() => {
-            const progressFills = document.querySelectorAll('.progress-fill');
-            progressFills.forEach(p => {
-                const rect = p.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 80 && !p.style.width) {
-                    const target = p.getAttribute('data-progress');
-                    p.style.width = `${target}%`;
-                    const parentCard = p.closest('.group-card');
-                    if (parentCard) {
-                        const cls = Array.from(parentCard.classList).find(c => gradientMap[c]);
-                        if (cls) p.style.background = gradientMap[cls];
+        window.addEventListener("load", () => {
+            buildZones();
+            buildLeaderboard();
+            renderReels();
+            checkAdminAndShowForm();
+            revealOnScroll();
+            setTimeout(() => {
+                const fills = document.querySelectorAll('.progress-fill');
+                fills.forEach(f => {
+                    if (f.getBoundingClientRect().top < window.innerHeight - 80 && !f.style.width) {
+                        const target = f.getAttribute('data-progress');
+                        f.style.width = `${target}%`;
+                        const parent = f.closest('.group-card');
+                        if (parent) {
+                            const cls = Array.from(parent.classList).find(c => gradientMap[c]);
+                            if (cls) f.style.background = gradientMap[cls];
+                        }
                     }
-                }
-            });
-        }, 300);
+                });
+            }, 200);
+        });
     </script>
 </body>
 </html>
