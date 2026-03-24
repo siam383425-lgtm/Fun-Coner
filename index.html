@@ -1,9 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>✨ Fun Corner | Elite Instagram Community</title>
+    
+    <!-- PWA Meta -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Fun Corner">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#E1306C">
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -41,6 +49,7 @@
             filter: blur(80px);
             z-index: -1;
             animation: floatOrb 15s infinite alternate ease-in-out;
+            will-change: transform;
         }
         .orb-1 {
             width: 250px;
@@ -211,6 +220,8 @@
             color: white;
             transition: all 0.3s ease;
             text-decoration: none;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
         .ig-main-btn {
             background: linear-gradient(95deg, #f09433, #E1306C);
@@ -241,6 +252,7 @@
             border: 1px solid rgba(255,255,255,0.08);
             transition: all 0.3s ease;
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
         .group-card:active {
             transform: scale(0.98);
@@ -350,6 +362,8 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
         .admin-ig-btn:active {
             background: #E1306C;
@@ -521,6 +535,8 @@
             display: inline-block;
             box-shadow: 0 8px 18px -6px #E1306C;
             text-decoration: none;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
         .request-btn:active {
             transform: scale(0.97);
@@ -538,6 +554,21 @@
             color: #E1306C;
             text-decoration: none;
         }
+
+        /* Motion reduction for battery saving */
+        @media (prefers-reduced-motion: reduce) {
+            .orb, .gradient-overlay, .logo-container, .group-card, .reel-card, .ig-main-btn, .enter-btn, .admin-ig-btn, .request-btn {
+                animation: none !important;
+                transition: none !important;
+            }
+            #bg-canvas {
+                display: none;
+            }
+            .orb, .gradient-overlay {
+                display: none;
+            }
+        }
+
         @media (min-width: 640px) {
             .section-title {
                 font-size: 2rem;
@@ -607,7 +638,8 @@
 
     <section class="hero-section">
         <div class="logo-container reveal">
-            <img src="WhatsApp Image 2026-03-20 at 7.56.57 PM.jpeg" alt="Fun Corner Crest">
+            <!-- IMAGE RENAMED TO logo.jpeg -->
+            <img src="logo.jpeg" alt="Fun Corner Crest">
         </div>
         <div class="welcome-text reveal">
             <h1>FUN CORNER</h1>
@@ -705,7 +737,8 @@
 
         function initParticles() {
             particles = [];
-            let count = Math.min(60, Math.floor(window.innerWidth * 0.12));
+            // Reduced particle count for mobile (max 30)
+            let count = Math.min(30, Math.floor(window.innerWidth * 0.08));
             for (let i = 0; i < count; i++) {
                 particles.push(new Particle());
             }
@@ -859,7 +892,7 @@
                 return `
                     <div class="reel-card reveal">
                         <div class="reel-embed">
-                            <iframe src="${embedUrl}" frameborder="0" allowfullscreen scrolling="no" allow="encrypted-media"></iframe>
+                            <iframe loading="lazy" src="${embedUrl}" frameborder="0" allowfullscreen scrolling="no" allow="encrypted-media"></iframe>
                         </div>
                         <div class="reel-info">
                             <i class="fab fa-instagram"></i> ${reel.title || 'Fun Corner Reel'}
@@ -929,8 +962,15 @@
                 }
             }
         }
-        window.addEventListener("scroll", revealOnScroll);
+        window.addEventListener("scroll", revealOnScroll, { passive: true });
         window.addEventListener("load", revealOnScroll);
+
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('SW registered', reg))
+                .catch(err => console.log('SW failed', err));
+        }
 
         // INITIALIZE
         buildZones();
