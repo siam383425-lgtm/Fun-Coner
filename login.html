@@ -1,9 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>🔐 Login | Fun Corner Universe</title>
+
+    <!-- PWA Meta -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Fun Corner Login">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#E1306C">
+
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -45,6 +54,7 @@
             filter: blur(80px);
             z-index: -1;
             animation: floatOrb 12s infinite alternate ease-in-out;
+            will-change: transform;
         }
         .orb-1 {
             width: 300px;
@@ -122,6 +132,7 @@
             margin-bottom: 12px;
             filter: drop-shadow(0 0 12px rgba(225, 48, 108, 0.5));
             animation: pulseGlow 2s infinite alternate;
+            will-change: filter;
         }
         @keyframes pulseGlow {
             0% { filter: drop-shadow(0 0 5px rgba(225,48,108,0.3)); }
@@ -206,7 +217,7 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .toggle-password:hover {
+        .toggle-password:active {
             color: #E1306C;
         }
 
@@ -237,9 +248,8 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .forgot-pass:hover {
+        .forgot-pass:active {
             color: #f09433;
-            text-decoration: underline;
         }
 
         /* Captcha */
@@ -301,7 +311,7 @@
             align-items: center;
             justify-content: center;
         }
-        .captcha-refresh:hover {
+        .captcha-refresh:active {
             background: #E1306C;
             transform: rotate(180deg);
         }
@@ -324,7 +334,7 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            transition: 0.2s;
+            transition: transform 0.15s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             box-shadow: 0 6px 14px rgba(225, 48, 108, 0.4);
         }
         .btn-login:active {
@@ -363,13 +373,13 @@
             color: white;
             font-weight: 600;
             text-decoration: none;
-            transition: 0.2s;
+            transition: all 0.2s;
         }
-        .btn-join:hover,
         .btn-join:active {
             border-color: #00f2fe;
             color: #00f2fe;
             background: rgba(0, 242, 254, 0.05);
+            transform: scale(0.97);
         }
 
         /* Error message */
@@ -434,10 +444,14 @@
             border: 1px solid #E1306C;
             color: #E1306C;
             cursor: pointer;
+            transition: 0.2s;
         }
         .modal-buttons button:first-child {
             background: #E1306C;
             color: white;
+        }
+        .modal-buttons button:active {
+            transform: scale(0.96);
         }
 
         /* Admin hint */
@@ -446,6 +460,24 @@
             margin-top: 20px;
             font-size: 0.7rem;
             color: #555;
+        }
+
+        /* Motion reduction for battery saving */
+        @media (prefers-reduced-motion: reduce) {
+            .orb, .logo-icon, .btn-login, .btn-join, .captcha-refresh, .login-wrapper {
+                animation: none !important;
+                transition: none !important;
+                transform: none !important;
+            }
+            #particleCanvas {
+                display: none;
+            }
+            .orb {
+                display: none;
+            }
+            .cursor {
+                animation: none !important;
+            }
         }
 
         /* Responsive */
@@ -555,7 +587,7 @@
     </div>
 
     <script>
-        // ======================== ANIMATED BACKGROUND ========================
+        // ======================== ANIMATED BACKGROUND (OPTIMIZED) ========================
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -571,10 +603,10 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.3;
-                this.opacity = Math.random() * 0.5 + 0.2;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.25;
+                this.speedY = (Math.random() - 0.5) * 0.2;
+                this.opacity = Math.random() * 0.4 + 0.1;
             }
             update() {
                 this.x += this.speedX;
@@ -594,8 +626,9 @@
 
         function initParticles() {
             particles = [];
-            const particleCount = Math.min(100, Math.floor(window.innerWidth * 0.2));
-            for (let i = 0; i < particleCount; i++) {
+            // Reduced particle count for mobile (max 40)
+            let count = Math.min(40, Math.floor(window.innerWidth * 0.1));
+            for (let i = 0; i < count; i++) {
                 particles.push(new Particle());
             }
         }
@@ -692,7 +725,7 @@
         }
         loadStoredCredentials();
 
-        // Forgot password modal (only for normal users)
+        // Forgot password modal
         const forgotBtn = document.getElementById('forgotPassBtn');
         const modal = document.getElementById('forgotModal');
         const closeModal = document.getElementById('closeModalBtn');
@@ -725,7 +758,7 @@
             }, 1500);
         });
 
-        // Admin credentials list (hardcoded)
+        // Admin credentials list
         const adminList = [
             { email: "gold.admin1@funconer.com", password: "gold123", branch: "gold", name: "Gold Admin 1" },
             { email: "gold.admin2@funconer.com", password: "gold123", branch: "gold", name: "Gold Admin 2" },
@@ -762,10 +795,9 @@
                 return;
             }
 
-            // Check admin login first
+            // Check admin login
             const admin = adminList.find(a => a.email === identifier && a.password === password);
             if (admin) {
-                // Admin login: set session and redirect to admin dashboard
                 sessionStorage.setItem('adminLoggedIn', 'true');
                 sessionStorage.setItem('adminBranch', admin.branch);
                 sessionStorage.setItem('adminName', admin.name);
@@ -785,13 +817,12 @@
                 return;
             }
 
-            // Show loading state
+            // Show loading
             const originalBtnText = loginBtn.innerHTML;
             loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
             loginBtn.disabled = true;
 
             setTimeout(() => {
-                // Save user login session
                 localStorage.setItem('funCornerLoggedIn', JSON.stringify({
                     fullName: user.fullName,
                     email: user.email,
@@ -799,17 +830,22 @@
                     memberNumber: user.memberNumber
                 }));
 
-                // Save credentials if "Remember Me" is checked
                 if (document.getElementById('rememberCheckbox').checked) {
                     localStorage.setItem('funCornerLogin', JSON.stringify({ email: identifier, password: password }));
                 } else {
                     localStorage.removeItem('funCornerLogin');
                 }
 
-                // Redirect to main page
                 window.location.href = 'index.html';
             }, 1200);
         });
+
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('SW registered', reg))
+                .catch(err => console.log('SW failed', err));
+        }
     </script>
 </body>
 </html>
