@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>✨ Fun Corner | Join Elite</title>
+    <title>✨ Fun Corner | Elite Registration</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://unpkg.com/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
@@ -24,7 +24,6 @@
             position: relative;
         }
 
-        /* Full‑screen background animations */
         #particleCanvas {
             position: fixed;
             top: 0;
@@ -42,35 +41,14 @@
             z-index: -1;
             animation: floatOrb 12s infinite alternate ease-in-out;
         }
-        .orb-1 {
-            width: 250px;
-            height: 250px;
-            background: rgba(225, 48, 108, 0.4);
-            top: -80px;
-            left: -80px;
-        }
-        .orb-2 {
-            width: 320px;
-            height: 320px;
-            background: rgba(240, 148, 51, 0.3);
-            bottom: -100px;
-            right: -80px;
-            animation-delay: -5s;
-        }
-        .orb-3 {
-            width: 180px;
-            height: 180px;
-            background: rgba(0, 242, 254, 0.2);
-            top: 40%;
-            left: 15%;
-            animation-duration: 18s;
-        }
+        .orb-1 { width: 250px; height: 250px; background: rgba(225, 48, 108, 0.4); top: -80px; left: -80px; }
+        .orb-2 { width: 320px; height: 320px; background: rgba(240, 148, 51, 0.3); bottom: -100px; right: -80px; animation-delay: -5s; }
+        .orb-3 { width: 180px; height: 180px; background: rgba(0, 242, 254, 0.2); top: 40%; left: 15%; animation-duration: 18s; }
         @keyframes floatOrb {
             0% { transform: translate(0, 0) scale(1); }
             100% { transform: translate(40px, 60px) scale(1.2); }
         }
 
-        /* Main container – fills screen */
         .app-container {
             display: flex;
             flex-direction: column;
@@ -79,7 +57,6 @@
             padding: 0;
         }
 
-        /* Glass card – no margins, rounded top corners only */
         .glass-card {
             background: rgba(18, 18, 28, 0.85);
             backdrop-filter: blur(20px);
@@ -106,286 +83,61 @@
             100% { box-shadow: 0 0 0 6px rgba(225,48,108,0); }
         }
 
-        h2 {
-            font-size: 1.4rem;
-            font-weight: 800;
-            margin-bottom: 0.8rem;
-            background: linear-gradient(135deg, #fff, #E1306C);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.8rem; background: linear-gradient(135deg, #fff, #E1306C); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .rule-list { background: rgba(0, 0, 0, 0.3); border-radius: 1.2rem; padding: 0.8rem; margin: 1rem 0; list-style: none; }
+        .rule-list li { margin: 0.6rem 0; display: flex; align-items: flex-start; gap: 8px; font-size: 0.8rem; line-height: 1.35; }
+        .rule-list i { color: #E1306C; width: 20px; margin-top: 2px; font-size: 0.75rem; }
 
-        /* Rule list – more compact */
-        .rule-list {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 1.2rem;
-            padding: 0.8rem;
-            margin: 1rem 0;
-            list-style: none;
-        }
-        .rule-list li {
-            margin: 0.6rem 0;
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            font-size: 0.8rem;
-            line-height: 1.35;
-        }
-        .rule-list i {
-            color: #E1306C;
-            width: 20px;
-            margin-top: 2px;
-            font-size: 0.75rem;
-        }
+        .btn-primary, .btn-outline { border: none; padding: 12px 16px; font-weight: 700; border-radius: 40px; font-size: 0.95rem; cursor: pointer; transition: 0.2s; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; }
+        .btn-primary { background: linear-gradient(95deg, #E1306C, #f09433); color: white; box-shadow: 0 4px 12px rgba(225,48,108,0.3); }
+        .btn-primary:active { transform: scale(0.97); }
+        .btn-outline { background: transparent; border: 1px solid #E1306C; color: #E1306C; }
 
-        /* Buttons – minimum 44px height for touch */
-        .btn-primary, .btn-outline {
-            border: none;
-            padding: 12px 16px;
-            font-weight: 700;
-            border-radius: 40px;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            min-height: 48px;
-        }
-        .btn-primary {
-            background: linear-gradient(95deg, #E1306C, #f09433);
-            color: white;
-            box-shadow: 0 4px 12px rgba(225,48,108,0.3);
-        }
-        .btn-primary:active {
-            transform: scale(0.97);
-        }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #E1306C;
-            color: #E1306C;
-        }
+        .form-group { margin-bottom: 1rem; }
+        label { font-weight: 500; display: block; margin-bottom: 5px; font-size: 0.7rem; letter-spacing: 0.5px; color: #ccc; }
+        input, select { width: 100%; background: rgba(20, 20, 30, 0.9); border: 1px solid rgba(255, 255, 255, 0.2); padding: 12px 14px; border-radius: 28px; color: white; font-family: 'Outfit', sans-serif; font-size: 0.9rem; transition: 0.2s; }
+        input:focus, select:focus { outline: none; border-color: #E1306C; box-shadow: 0 0 0 2px rgba(225,48,108,0.2); }
 
-        /* Form elements */
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        label {
-            font-weight: 500;
-            display: block;
-            margin-bottom: 5px;
-            font-size: 0.7rem;
-            letter-spacing: 0.5px;
-            color: #ccc;
-        }
-        input, select {
-            width: 100%;
-            background: rgba(20, 20, 30, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 12px 14px;
-            border-radius: 28px;
-            color: white;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.9rem;
-            transition: 0.2s;
-        }
-        input:focus, select:focus {
-            outline: none;
-            border-color: #E1306C;
-            box-shadow: 0 0 0 2px rgba(225,48,108,0.2);
-        }
+        .copy-box { background: #1a1a24; padding: 10px 12px; border-radius: 28px; display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; }
+        .copy-text { font-family: monospace; word-break: break-all; font-size: 0.8rem; flex: 1; }
+        .bio-preview { font-size: 0.7rem; color: #aaa; margin-top: 4px; }
 
-        /* Copy box */
-        .copy-box {
-            background: #1a1a24;
-            padding: 10px 12px;
-            border-radius: 28px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-        .copy-text {
-            font-family: monospace;
-            word-break: break-all;
-            font-size: 0.8rem;
-            flex: 1;
-        }
-        .bio-preview {
-            font-size: 0.7rem;
-            color: #aaa;
-            margin-top: 4px;
-        }
+        .step-container { display: none; animation: fadeSlide 0.3s ease; }
+        .step-container.active { display: block; }
+        @keyframes fadeSlide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Step containers */
-        .step-container {
-            display: none;
-            animation: fadeSlide 0.3s ease;
-        }
-        .step-container.active {
-            display: block;
-        }
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .error-msg, .success-msg {
-            font-size: 0.7rem;
-            margin-top: 6px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+        .error-msg, .success-msg { font-size: 0.7rem; margin-top: 6px; display: flex; align-items: center; gap: 5px; }
         .error-msg { color: #ff6b6b; }
         .success-msg { color: #6fcf97; }
 
-        /* Captcha */
-        .captcha-box {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .captcha-code {
-            background: #2c2c3a;
-            padding: 10px 12px;
-            border-radius: 28px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            font-family: monospace;
-            font-size: 1rem;
-            color: #00f2fe;
-        }
-        .captcha-box input {
-            flex: 2;
-            min-width: 110px;
-        }
+        .captcha-box { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .captcha-code { background: #2c2c3a; padding: 10px 12px; border-radius: 28px; font-weight: bold; letter-spacing: 2px; font-family: monospace; font-size: 1rem; color: #00f2fe; }
+        .captcha-box input { flex: 2; min-width: 110px; }
+        .whatsapp-preview { font-size: 0.65rem; color: #25D366; margin-top: 3px; }
 
-        .whatsapp-preview {
-            font-size: 0.65rem;
-            color: #25D366;
-            margin-top: 3px;
-        }
+        .admin-link { text-align: center; padding: 1rem; font-size: 0.7rem; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); }
+        .admin-link a { color: #E1306C; text-decoration: none; }
+        footer { text-align: center; padding: 0.8rem; font-size: 0.6rem; color: #555; background: rgba(0,0,0,0.2); }
 
-        .admin-link {
-            text-align: center;
-            padding: 1rem;
-            font-size: 0.7rem;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(4px);
-        }
-        .admin-link a {
-            color: #E1306C;
-            text-decoration: none;
-        }
-        footer {
-            text-align: center;
-            padding: 0.8rem;
-            font-size: 0.6rem;
-            color: #555;
-            background: rgba(0,0,0,0.2);
-        }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; z-index: 1000; visibility: hidden; opacity: 0; transition: 0.2s; padding: 20px; }
+        .modal.active { visibility: visible; opacity: 1; }
+        .modal-content { background: #12121c; border-radius: 28px; padding: 1.5rem; width: 90%; max-width: 380px; text-align: center; border: 1px solid #E1306C; max-height: 80vh; overflow-y: auto; }
+        .confirm-buttons { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
+        .confirm-buttons button { padding: 10px 20px; border-radius: 30px; font-weight: 600; cursor: pointer; min-width: 100px; }
+        .btn-confirm { background: #28a745; color: white; border: none; }
+        .btn-retry { background: transparent; border: 1px solid #ff6b6b; color: #ff6b6b; }
+        .extracted-text-box { background: #0a0a12; border-radius: 16px; padding: 10px; margin: 12px 0; text-align: left; font-size: 0.7rem; word-break: break-all; max-height: 150px; overflow-y: auto; font-family: monospace; }
+        .debug-btn { background: rgba(255,255,255,0.1); border: none; color: #aaa; font-size: 0.6rem; margin-top: 8px; }
 
-        /* Modals – full‑screen overlay */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(12px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            visibility: hidden;
-            opacity: 0;
-            transition: 0.2s;
-            padding: 20px;
-        }
-        .modal.active {
-            visibility: visible;
-            opacity: 1;
-        }
-        .modal-content {
-            background: #12121c;
-            border-radius: 28px;
-            padding: 1.5rem;
-            width: 90%;
-            max-width: 380px;
-            text-align: center;
-            border: 1px solid #E1306C;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        .confirm-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .confirm-buttons button {
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            min-width: 100px;
-        }
-        .btn-confirm {
-            background: #28a745;
-            color: white;
-            border: none;
-        }
-        .btn-retry {
-            background: transparent;
-            border: 1px solid #ff6b6b;
-            color: #ff6b6b;
-        }
-
-        /* Mobile adjustments */
         @media (max-width: 550px) {
-            .glass-card {
-                padding: 1.2rem 0.8rem;
-            }
-            h2 {
-                font-size: 1.2rem;
-            }
-            .rule-list li {
-                font-size: 0.75rem;
-            }
-            .btn-primary, .btn-outline {
-                padding: 10px 14px;
-                font-size: 0.9rem;
-            }
-            input, select {
-                padding: 10px 12px;
-                font-size: 0.85rem;
-            }
-            .captcha-box {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .captcha-code {
-                text-align: center;
-            }
-            .copy-box {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .copy-box button {
-                align-self: flex-end;
-            }
-            .modal-content {
-                width: 95%;
-                padding: 1rem;
-            }
+            .glass-card { padding: 1.2rem 0.8rem; }
+            h2 { font-size: 1.2rem; }
+            .rule-list li { font-size: 0.75rem; }
+            .btn-primary, .btn-outline { padding: 10px 14px; font-size: 0.9rem; }
+            .captcha-box { flex-direction: column; align-items: stretch; }
+            .captcha-code { text-align: center; }
+            .copy-box { flex-direction: column; align-items: stretch; }
+            .copy-box button { align-self: flex-end; }
         }
     </style>
 </head>
@@ -424,10 +176,10 @@
                 <button class="btn-primary" id="nextStep0Btn" disabled>Continue to Bio Setup →</button>
             </div>
 
-            <!-- STEP 1: BIO VERIFICATION -->
+            <!-- STEP 1: ADVANCED OCR BIO VERIFICATION -->
             <div id="step1" class="step-container">
                 <div class="step-badge"><i class="fab fa-instagram"></i> Step 2 / 3</div>
-                <h2>📸 Verify Your Instagram Bio</h2>
+                <h2>📸 Advanced Bio Verification</h2>
                 <p style="font-size:0.85rem;">Set your bio exactly as:</p>
                 <div class="copy-box">
                     <span class="copy-text" id="bioTemplate">𝐌𝐞𝐦𝐛𝐞𝐫 𝐎𝐟 : @fc0ff1c1als_143</span>
@@ -435,10 +187,11 @@
                 </div>
                 <div class="form-group">
                     <label>Screenshot of your bio (proof) *</label>
-                    <input type="file" id="bioScreenshot" accept="image/*">
-                    <div class="bio-preview">Upload a clear screenshot showing your Instagram bio.</div>
+                    <input type="file" id="bioScreenshot" accept="image/*" capture="environment">
+                    <div class="bio-preview">Upload a CLEAR screenshot. For best results, use high contrast and ensure the text is readable.</div>
                 </div>
-                <button class="btn-primary" id="verifyBioBtn">Verify Bio →</button>
+                <button class="btn-primary" id="verifyBioBtn">🔍 Smart OCR Verify →</button>
+                <button class="debug-btn" id="showDebugBtn" style="display:none;">Show Debug</button>
                 <div id="verifyMsg" style="margin-top: 10px;"></div>
             </div>
 
@@ -492,29 +245,27 @@
         </div>
     </div>
 
-    <!-- Manual Confirmation Modal -->
+    <!-- Advanced Manual Confirmation Modal with extracted text -->
     <div id="confirmModal" class="modal">
         <div class="modal-content">
             <i class="fas fa-question-circle" style="font-size: 2rem; color: #f0ad4e;"></i>
-            <h3 style="margin: 0.8rem 0;">Manual Confirmation</h3>
-            <p id="confirmText">OCR could not detect the required bio text.</p>
-            <p id="detectedPreview" style="font-size: 0.75rem; color: #aaa; margin-top: 8px;"></p>
+            <h3 style="margin: 0.8rem 0;">Manual Verification Required</h3>
+            <p id="confirmText">OCR could not automatically detect the required bio text.</p>
+            <div id="extractedTextArea" class="extracted-text-box"></div>
+            <p style="font-size: 0.7rem; margin-top: 8px;">If your bio is correct, you can manually confirm.</p>
             <div class="confirm-buttons">
-                <button class="btn-confirm" id="manualConfirmBtn">Yes, Bio is Correct</button>
-                <button class="btn-retry" id="manualRetryBtn">No, Try Again</button>
+                <button class="btn-confirm" id="manualConfirmBtn">✅ Yes, Bio is Correct</button>
+                <button class="btn-retry" id="manualRetryBtn">🔄 No, Try Again</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Particle background (reduced for performance)
+        // ======================== PARTICLE BACKGROUND ========================
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
@@ -556,7 +307,7 @@
         animateParticles();
         window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
 
-        // App logic (unchanged but with mobile optimizations)
+        // ======================== APP LOGIC ========================
         const branchLinks = {
             "Gold Zone": "https://chat.whatsapp.com/GoldEliteZone",
             "Aura Zone": "https://chat.whatsapp.com/AuraMystic",
@@ -619,50 +370,113 @@
         acceptCheck.addEventListener('change', () => { nextBtn0.disabled = !acceptCheck.checked; });
         nextBtn0.addEventListener('click', () => { if(acceptCheck.checked) showStep(1); else alert("Please accept the rules to continue."); });
 
-        // Bio verification OCR
+        // Copy bio
         const copyBioBtn = document.getElementById('copyBioBtn');
         const bioTemplate = document.getElementById('bioTemplate').innerText;
         copyBioBtn.addEventListener('click', () => { navigator.clipboard.writeText(bioTemplate); alert("✅ Bio text copied! Set this in your Instagram bio."); });
 
+        // ======================== ADVANCED OCR SYSTEM ========================
         const verifyBtn = document.getElementById('verifyBioBtn');
         const bioScreenshot = document.getElementById('bioScreenshot');
         const verifyMsgDiv = document.getElementById('verifyMsg');
-        const requiredBio = "𝐌𝐞𝐦𝐛𝐞𝐫 𝐎𝐟 : @fc0ff1c1als_143";
-
-        function normalizeForCompare(text) {
+        const requiredBioRaw = "𝐌𝐞𝐦𝐛𝐞𝐫 𝐎𝐟 : @fc0ff1c1als_143";
+        
+        // Advanced normalization: converts all bold/italic unicode to normal, removes extra spaces
+        function advancedNormalize(text) {
+            // Map mathematical bold/italic to normal
             const boldMap = {
-                '𝐌':'M','𝐞':'e','𝐦':'m','𝐛':'b','𝐫':'r','𝐎':'O','𝐟':'f',
-                '𝐅':'F','𝐜':'c','𝐥':'l','𝐬':'s','𝐧':'n','𝐝':'d'
+                '𝐀':'A','𝐁':'B','𝐂':'C','𝐃':'D','𝐄':'E','𝐅':'F','𝐆':'G','𝐇':'H','𝐈':'I','𝐉':'J','𝐊':'K','𝐋':'L','𝐌':'M',
+                '𝐍':'N','𝐎':'O','𝐏':'P','𝐐':'Q','𝐑':'R','𝐒':'S','𝐓':'T','𝐔':'U','𝐕':'V','𝐖':'W','𝐗':'X','𝐘':'Y','𝐙':'Z',
+                '𝐚':'a','𝐛':'b','𝐜':'c','𝐝':'d','𝐞':'e','𝐟':'f','𝐠':'g','𝐡':'h','𝐢':'i','𝐣':'j','𝐤':'k','𝐥':'l','𝐦':'m',
+                '𝐧':'n','𝐨':'o','𝐩':'p','𝐪':'q','𝐫':'r','𝐬':'s','𝐭':'t','𝐮':'u','𝐯':'v','𝐰':'w','𝐱':'x','𝐲':'y','𝐳':'z',
+                '𝟎':'0','𝟏':'1','𝟐':'2','𝟑':'3','𝟒':'4','𝟓':'5','𝟔':'6','𝟕':'7','𝟖':'8','𝟗':'9',
+                '𝐌':'M','𝐞':'e','𝐦':'m','𝐛':'b','𝐫':'r','𝐎':'O','𝐟':'f','𝐅':'F','𝐜':'c','𝐥':'l','𝐬':'s','𝐧':'n','𝐝':'d'
             };
             let normalized = text;
             for (let [key, val] of Object.entries(boldMap)) {
                 normalized = normalized.replace(new RegExp(key, 'g'), val);
             }
-            normalized = normalized.replace(/0/g, 'o').replace(/1/g, 'l');
-            normalized = normalized.replace(/[^a-z0-9@:]/gi, ' ');
-            return normalized.toLowerCase().replace(/\s+/g, ' ').trim();
+            // Convert full-width to half-width, etc.
+            normalized = normalized.replace(/[０-９]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 65248));
+            normalized = normalized.replace(/[！-～]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) - 65248));
+            // Lowercase and trim spaces
+            normalized = normalized.toLowerCase().replace(/\s+/g, ' ').trim();
+            return normalized;
+        }
+
+        // Extract Instagram username from text using multiple patterns
+        function extractInstagramUsername(text) {
+            const patterns = [
+                /@([a-zA-Z0-9_.]+)/i,
+                /instagram\.com\/([a-zA-Z0-9_.]+)/i,
+                /username[:\s]*@?([a-zA-Z0-9_.]+)/i,
+                /id[:\s]*@?([a-zA-Z0-9_.]+)/i
+            ];
+            for (let pattern of patterns) {
+                const match = text.match(pattern);
+                if (match) return match[1];
+            }
+            // Fallback: look for any word that looks like username (alphanumeric + underscore)
+            const fallbackMatch = text.match(/(?:^|\s)([a-zA-Z0-9_]{3,20})(?=\s|$)/);
+            if (fallbackMatch && !fallbackMatch[1].match(/^(member|of|funconer|fc0ff1c1als)/i)) return fallbackMatch[1];
+            return null;
+        }
+
+        // Preprocess image: resize, grayscale, contrast
+        function preprocessImage(file) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    const maxSize = 1200;
+                    if (width > maxSize) { height = (height * maxSize) / width; width = maxSize; }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    // Grayscale + contrast enhancement
+                    const imageData = ctx.getImageData(0, 0, width, height);
+                    const data = imageData.data;
+                    for (let i = 0; i < data.length; i += 4) {
+                        let r = data[i];
+                        let g = data[i+1];
+                        let b = data[i+2];
+                        let gray = 0.299 * r + 0.587 * g + 0.114 * b;
+                        // Increase contrast
+                        gray = gray > 128 ? Math.min(255, gray * 1.2) : gray * 0.8;
+                        data[i] = data[i+1] = data[i+2] = gray;
+                    }
+                    ctx.putImageData(imageData, 0, 0);
+                    canvas.toBlob(blob => resolve(blob), 'image/png');
+                };
+                img.onerror = reject;
+                img.src = URL.createObjectURL(file);
+            });
         }
 
         let lastExtractedText = "";
-        let lastFile = null;
-
+        let lastUsername = null;
+        
         verifyBtn.addEventListener('click', async () => {
             verifyMsgDiv.innerHTML = '';
             if(!bioScreenshot.files || bioScreenshot.files.length === 0) {
-                verifyMsgDiv.innerHTML = '<span class="error-msg"><i class="fas fa-image"></i> Please upload a screenshot of your bio.</span>';
+                verifyMsgDiv.innerHTML = '<span class="error-msg"><i class="fas fa-image"></i> Please upload a screenshot.</span>';
                 return;
             }
             const file = bioScreenshot.files[0];
             if(!file.type.startsWith('image/')) {
-                verifyMsgDiv.innerHTML = '<span class="error-msg">File must be an image (jpg, png, etc).</span>';
+                verifyMsgDiv.innerHTML = '<span class="error-msg">File must be an image (jpg, png).</span>';
                 return;
             }
-            verifyMsgDiv.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Analyzing screenshot with OCR...<div class="ocr-progress" style="font-size:0.65rem; margin-top:4px;"></div>';
+            verifyMsgDiv.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Preprocessing image & running advanced OCR...<div class="ocr-progress" style="font-size:0.65rem; margin-top:4px;"></div>';
             verifyBtn.disabled = true;
-            lastFile = file;
-
+            
             try {
-                const { data: { text } } = await Tesseract.recognize(file, 'eng', {
+                // Preprocess image for better recognition
+                const processedBlob = await preprocessImage(file);
+                const { data: { text } } = await Tesseract.recognize(processedBlob, 'eng', {
                     logger: m => {
                         if(m.status === 'recognizing text') {
                             const progress = Math.round(m.progress * 100);
@@ -673,43 +487,54 @@
                 });
                 const extracted = text.trim();
                 lastExtractedText = extracted;
-                const normalizedExtracted = normalizeForCompare(extracted);
-                const normalizedRequired = normalizeForCompare(requiredBio);
-                const contains = normalizedExtracted.includes(normalizedRequired);
-                if(contains) {
-                    verifyMsgDiv.innerHTML = '<span class="success-msg"><i class="fas fa-check-circle"></i> Bio verified! Proceed to registration.</span>';
+                const normalizedExtracted = advancedNormalize(extracted);
+                const normalizedRequired = advancedNormalize(requiredBioRaw);
+                const bioContains = normalizedExtracted.includes(normalizedRequired);
+                const username = extractInstagramUsername(extracted);
+                lastUsername = username;
+                
+                if (bioContains && username) {
+                    // Auto-fill Instagram username in registration form for convenience
+                    const igField = document.getElementById('igUsername');
+                    if(igField) igField.value = username;
+                    verifyMsgDiv.innerHTML = `<span class="success-msg"><i class="fas fa-check-circle"></i> ✅ Bio verified! Instagram: @${username}. Proceeding to registration...</span>`;
                     setTimeout(() => showStep(2), 800);
                 } else {
-                    // Show manual confirmation modal
-                    const preview = extracted.substring(0, 200);
-                    document.getElementById('detectedPreview').innerHTML = `<strong>Detected text:</strong><br>${preview}...`;
+                    // Show manual confirmation modal with detailed extracted text
+                    const preview = extracted.length > 400 ? extracted.substring(0,400)+'...' : extracted;
+                    document.getElementById('extractedTextArea').innerHTML = `<strong>📝 Extracted from image:</strong><br>${preview.replace(/\n/g, '<br>')}<br><br><strong>✅ Required text:</strong> ${requiredBioRaw}`;
                     document.getElementById('confirmModal').classList.add('active');
                     verifyMsgDiv.innerHTML = '';
                 }
             } catch(e) {
                 console.error(e);
-                verifyMsgDiv.innerHTML = '<span class="error-msg">OCR error. Please retry with a clear image.</span>';
+                verifyMsgDiv.innerHTML = '<span class="error-msg">OCR error. Please retry with a clearer image.</span>';
             } finally {
                 verifyBtn.disabled = false;
             }
         });
 
-        // Manual confirmation
+        // Manual confirmation handlers
         const confirmModal = document.getElementById('confirmModal');
         const manualConfirmBtn = document.getElementById('manualConfirmBtn');
         const manualRetryBtn = document.getElementById('manualRetryBtn');
-
+        
         manualConfirmBtn.addEventListener('click', () => {
             confirmModal.classList.remove('active');
+            // If we have a username extracted even partially, use it; otherwise ask user to type
+            if(lastUsername) {
+                document.getElementById('igUsername').value = lastUsername;
+            }
             showStep(2);
         });
         manualRetryBtn.addEventListener('click', () => {
             confirmModal.classList.remove('active');
             bioScreenshot.value = '';
             verifyMsgDiv.innerHTML = '';
+            lastExtractedText = "";
         });
 
-        // Registration form
+        // Registration form (unchanged logic but with auto-filled IG username)
         const regForm = document.getElementById('regForm');
         const regMsg = document.getElementById('regMsg');
         let captchaAnswer = 8;
